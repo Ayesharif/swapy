@@ -69,7 +69,7 @@ export default function NavBar() {
                         </>
             ):("")
         } 
-               <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'sellproduct'}    > 
+               <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/sellproduct'}    > 
                 <button className='border-3 px-4 py-1 rounded-3xl text-xl'><i className='fa-solid fa-plus'></i>Sell </button>
                  </Link>
 
