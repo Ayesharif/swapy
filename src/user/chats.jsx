@@ -105,7 +105,7 @@ export default function Chats() {
 
                 {/* Chat Messages Area */}
                 <div className="grid grid-rows-[1fr_auto]">
-<div className="p-4 h-[65vh]  overflow-scroll">
+<div className="p-4 h-[60vh]  overflow-scroll">
   {chat.map((response, key) => (
     <div
       key={key}
