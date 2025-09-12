@@ -20,8 +20,6 @@ import ManageProducts from './pages/admin/product'
 import Category from './pages/admin/category'
 
 import User from './pages/admin/user'
-import Adminayout from './Layouts/adminLayout'
-import Practice from './pages/user/practice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -39,7 +37,7 @@ function App() {
 <Route path='sellproduct' element={<SellProduct/>} />
 <Route path='profile' element={<Profile/>} />
 <Route path='detailpage/:id' element={<DetailPage/>} />
-<Route path='practice' element={<Practice/>} />
+
 
   </Route>
 <Route path='chats' element={<Chats/>} />
