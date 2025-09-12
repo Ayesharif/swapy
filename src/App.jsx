@@ -1,27 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import UserLayout from './user/userLayout'
 import { Route, Routes } from 'react-router-dom'
-import Home from './user/Home'
-import Login from './Auth/login'
-import Register from './Auth/register'
-import Chats from './user/chats'
-import ProductListing from './user/ProductListing'
-import Profile from './user/Profile'
-import DetailPage from './user/detailPage'
-import ForgotPassword from './Auth/forgotPassword'
-import OtpVerification from './Auth/OtpVerification'
+import './App.css'
+import UserLayout from './Layouts/userLayout'
+import Home from './pages/user/Home'
+import Login from './pages/Auth/login'
+import Register from './pages/Auth/register'
+import Chats from './pages/user/chats'
+import ProductListing from './pages/user/ProductListing'
+import Profile from './pages/user/Profile'
+import DetailPage from './pages/user/detailPage'
+import ForgotPassword from './pages/Auth/forgotPassword'
+import OtpVerification from './pages/Auth/OtpVerification'
 
-import SellProduct from './user/AddProduct'
-import AdminLayout from './admin/adminLayout'
-import Dashboard from './admin/dashboard'
-import ManageProducts from './admin/product'
-import AddProduct from './admin/addProduct'
-import Category from './admin/category'
+import SellProduct from './pages/user/AddProduct'
+import AdminLayout from './Layouts/adminLayout'
+import Dashboard from './pages/admin/dashboard'
+import ManageProducts from './pages/admin/product'
 
-import User from './admin/user'
+import Category from './pages/admin/category'
+
+import User from './pages/admin/user'
+import Adminayout from './Layouts/adminLayout'
+import Practice from './pages/user/practice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -39,6 +39,7 @@ function App() {
 <Route path='sellproduct' element={<SellProduct/>} />
 <Route path='profile' element={<Profile/>} />
 <Route path='detailpage/:id' element={<DetailPage/>} />
+<Route path='practice' element={<Practice/>} />
 
   </Route>
 <Route path='chats' element={<Chats/>} />

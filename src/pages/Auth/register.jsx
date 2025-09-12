@@ -7,8 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
-  const dispatch = useDispatch();
-    const {user} = useSelector((state)=> state.auth)
+
+
   const [formData, setFormData] = useState({ name: '', email: '', password: '', city:'', role: 'user' });
 
   const handleChange = e => {

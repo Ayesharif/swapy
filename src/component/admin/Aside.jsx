@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 export default function Aside({ showAside, setShowAside }) {
   const [dropdown, setDropDown]=useState(false)
   return (
-    <aside
-      className={`h-full absolute  md:flex flex-col justify-between ${ 
-        showAside ? 'flex' : 'hidden'
-      } md:translate-x-0 md:relative absolute z-50 md:top-0 left-0  w-[200px] bg-black text-white  p-4 transition-transform duration-300`}
+  <aside
+      className={`
+        h-screen fixed top-0 left-0 z-50
+        flex flex-col justify-between
+        w-[200px] bg-black text-white p-4
+        transform transition-transform duration-300 ease-in-out
+        ${showAside ? "translate-x-0" : "-translate-x-full"}
+        md:relative md:translate-x-0
+      `}
     >
 
       <ul className='flex flex-col gap-2 pt-5'>
@@ -17,12 +22,10 @@ export default function Aside({ showAside, setShowAside }) {
         >
         <i className="fa-solid fa-xmark text-2xl text-white "></i> 
       </button>
-        <Link to='/admin'>Dashboard</Link>
-
-        <Link to='products'>Products</Link>
-        <Link to='categories'>Category</Link>
-
-        <Link to='users'>Users</Link>
+        <Link onClick={()=> setShowAside(false)} to='/admin'>Dashboard</Link>
+        <Link onClick={()=> setShowAside(false)} to='products'>Products</Link>
+        <Link onClick={()=> setShowAside(false)} to='categories'>Category</Link>
+        <Link onClick={()=> setShowAside(false)} to='users'>Users</Link>
 
       {/* Close button for small screen */}
 
@@ -36,7 +39,7 @@ onClick={()=>setDropDown(!dropdown)}
   <div className={`bottom-[50px] w-full  flex items-center bg-blue-50 h-10 absolute  bg 
     ${dropdown ==true?"visible":"hidden"}
     `}>
-<Link className='hover:bg-red-200 py-1 px-2 text-red-600 w-full '> Logout</Link>
+<Link onClick={()=> setShowAside(false)} className='hover:bg-red-200 py-1 px-2 text-red-600 w-full '> Logout</Link>
   </div>
 </div>
     </aside>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { products } from '../products'
+import { products } from '../../utils/products'
+import ProductCart from '../../component/user/ProductCart';
 
 export default function Profile() {
     const [showUpdateBox, setShowUpdateBox] = useState(false);
@@ -8,25 +9,28 @@ export default function Profile() {
             <div className={`w-[90%]  grid lg:grid-cols-[30%_1fr] grid-cols-1 gap-10
                 ${showUpdateBox ==true ? "blur-sm": ""}
                 `}>
-                <div className='flex items-center flex-col gap-5'>
+                <div className='flex items-center lg:flex-col sm:flex-row flex-col gap-5'>
                     <div className='rounded-e-full  bg-blue-950 w-[90%] flex flex-col items-center'>
                         <img src="/vite.svg" className='w-[50%] object-center rounded-[50%]' alt="" />
                     </div>
+                    <div className='w-full flex flex-col items-center gap-2'>
+
                     <div 
                     onClick={() => setShowUpdateBox(true)}
-                    className='w-[90%] flex items-center justify-center border py-2 rounded hover:border-3'>
+                    className='w-[90%] flex items-center justify-center border sm:py-2 py-1 rounded hover:border-3'>
                         <i className='fa-solid fa-pen '></i>
                         <p className='text-md font-medium'>Update profile</p>
                     </div>
-                    <div className='w-[90%] flex items-center justify-center border py-2 rounded hover:border-3'>
+                    <div className='w-[90%] flex items-center justify-center border sm:py-2 py-1 rounded hover:border-3'>
                         <i className='fa-solid fa-share-nodes '></i>
                         <p className='text-md font-medium'>Share user profile</p>
                     </div>
-                    <div className='flex items-center w-[50%] justify-between '>
+                    <div className='flex items-center w-full justify-around '>
                         <p className='font-medium text-blue-600 cursor-pointer'>Block user</p>
                         <p>|</p>
                         <p className='font-medium text-blue-600 cursor-pointer'>Report user</p>
                     </div>
+                      </div>
 
  
                     
@@ -38,7 +42,7 @@ export default function Profile() {
                     </div>
                     <div className='flex flex-col  justify-start  gap-2 py-2 '>
                         <label htmlFor="loaction" className="">Location</label>
-                        <div className='w-[30%] flex items-center justify-start border gap-5 py-2 rounded hover:border-3 px-2'>
+                        <div className='sm:w-[30%] flex items-center justify-start border gap-5 py-2 rounded hover:border-3 px-2'>
                             <i className='fa-solid fa-location-dot text-blue-400 '></i>
                             <p className='text-md font-medium'>Hyderabad</p>
                         </div>
@@ -50,21 +54,12 @@ export default function Profile() {
 
 
                         { products.map((item, j)=>(
-<div
-              key={j}
-              className='flex sm:flex-col flex-row   border-1 border-gray-400 rounded-lg bg-white shadow hover:shadow-md transition'
-            >
-              <img
-                src={item.images[0]}
-                alt={item.name}
-                className='sm:w-full w-[40%]  sm:h-70 object-cover rounded'
-              />
-              <div className='flex flex-col gap-3 py-2'>
-              <p className='px-2 text-xl font-medium'>RS {item.price}</p>
-              <p className='px-2 mt-2 text-gray-800 '>{item.name}</p>
-              <p className='px-2 text-sm text-gray-600'>{item.description}</p>
-              </div>
-            </div>
+<ProductCart 
+key={j}
+showAction={false}
+showGrid={true}
+product={item}
+/>
             ))
             }
                     </div>
@@ -74,7 +69,7 @@ export default function Profile() {
                 </div>
             </div>
                                 <div
-  className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[700px] h-[500px] overflow-y-scroll w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
+  className={`fixed top-1/2  left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[700px] h-[500px] overflow-y-scroll w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showUpdateBox ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}
     z-2
   `}

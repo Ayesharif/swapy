@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import NavBar from './NavBar';
+
 import { useNavigate } from 'react-router-dom';
-import { chat } from '../chat';
+import { chat } from '../../utils/chat';
+import NavBar from '../../component/user/NavBar';
 
 export default function Chats() {
   const navigate= useNavigate();
@@ -10,9 +11,8 @@ export default function Chats() {
   const [showContacts, setShowContacts] = useState(true); // ✅ controls mobile switching
 
   return (
-    <div className="w-full flex flex-col items-center gap-5">
-      <NavBar />
-
+    <div className="w-full flex flex-col items-center gap-5 py-5">
+    <NavBar/>
       {haveChats ? (
         <div className="grid lg:grid-cols-[30%_1fr] md:grid-cols-[40%_1fr] grid-cols-1 w-[90%] h-[85vh] border border-gray-400">
           {/* CONTACTS LIST */}

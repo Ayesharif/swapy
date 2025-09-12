@@ -1,7 +1,7 @@
 import React from 'react'
 import{Outlet} from 'react-router-dom'
-import NavBar from './NavBar'
-import Footer from './Footer'
+import NavBar from '../component/user/NavBar'
+import Footer from '../component/common/Footer'
 export default function UserLayout() {
   return (
     <div className='overflow-x-hidden '>

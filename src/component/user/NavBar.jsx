@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function NavBar() {
     const [showbar, setshowbar] = useState(false);
     const [stickybar, setsstickybar] = useState(false);
-    const [userAvail, setuserAvail] = useState(false);
+    const [userAvail, setuserAvail] = useState(true);
     useEffect(() => {
         const handelbar = () => {
             if (window.scrollY > 200) {
@@ -32,7 +32,7 @@ export default function NavBar() {
         `}>
             <div className='md:w-[25%] flex items-center justify-center'>
                 <Link className='flex items-center flex-col px-5' to={'/'}>
-                    <p className='text-4xl font-extrabold'>Swapy</p>
+                    <p className='text-3xl font-extrabold'>Swapy</p>
                 </Link>
             </div>
             <button type='button' className='md:hidden px-5'

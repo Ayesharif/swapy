@@ -1,14 +1,11 @@
 import {React, useState}  from 'react'
 import { useDispatch,useSelector } from 'react-redux';
-import { loginUser } from '../Redux/action/authAction';
+
 import { useNavigate } from 'react-router-dom';
 
 
 export default function ForgotPassword() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-    const auth = useSelector(state => state.auth);
 
     const [loginData, setloginData] = useState({ email: '', password: '' });
 
@@ -16,7 +13,7 @@ export default function ForgotPassword() {
     // setloginData({ ...loginData, [e.target.name]: e.target.value });
 
   };
-console.log(loginData);
+
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -29,8 +26,6 @@ console.log(loginData);
     
     
   };
-  console.log(auth);
-
 
     return (
  <div className='h-[80vh] flex flex-col justify-center items-center '>

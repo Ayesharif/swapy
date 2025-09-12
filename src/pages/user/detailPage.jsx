@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { products } from '../products'
+import { products } from '../../utils/products'
 import { useNavigate, useParams } from 'react-router-dom';
 
 
