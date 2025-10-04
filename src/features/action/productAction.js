@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export const getActiveProducts = createAsyncThunk('activeProducts', async (data, { rejectWithValue }) => {
     try {
-        const response = await fetch('https://swapy-backend.vercel.app//products', {
+        const response = await fetch('https://swapy-backend.vercel.app/products', {
             credentials: "include"
         });
         if (!response.ok) {
@@ -27,7 +27,7 @@ export const getActiveProducts = createAsyncThunk('activeProducts', async (data,
 export const createProduct = createAsyncThunk('createProduct', async (data, { rejectWithValue }) => {
     try {
         console.log(data)
-        const response = await fetch('https://swapy-backend.vercel.app//user/product', {
+        const response = await fetch('https://swapy-backend.vercel.app/user/product', {
             method: "POST",
 
             body: data,
@@ -49,7 +49,7 @@ export const createProduct = createAsyncThunk('createProduct', async (data, { re
 export const getAllUserCategories = createAsyncThunk('allCategories', async (data, { rejectWithValue }) => {
 
     try {
-        const response = await fetch('https://swapy-backend.vercel.app//admin/categories', {
+        const response = await fetch('https://swapy-backend.vercel.app/admin/categories', {
             method:"Get",
             credentials: "include"
 

@@ -6,7 +6,7 @@ import { setMessage } from "../slices/userSlice";
 export const getprofile = createAsyncThunk('getProfile', async (data, { rejectWithValue }) => {
     // const dispatch = useDispatch()
     try {
-        const response = await fetch('https://swapy-backend.vercel.app//user/profile', {
+        const response = await fetch('https://swapy-backend.vercel.app/user/profile', {
           method:"Get",
             credentials: "include"
         });
@@ -31,7 +31,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (data, { re
 
     try {
         console.log(data)
-        const response = await fetch('https://swapy-backend.vercel.app//user/profile', {
+        const response = await fetch('https://swapy-backend.vercel.app/user/profile', {
             method: "POST",
             body: data,
             credentials:"include"
