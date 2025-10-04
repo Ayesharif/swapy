@@ -1,37 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllProducts, updateProductStatus } from "../../features/action/adminAction";
+import { handleError, handleSuccess } from "../../component/common/tosters";
+import { useNavigate } from "react-router-dom";
+import { clearMessage } from "../../features/slices/adminSlice";
+import Loader from "../../component/common/loader";
 
 const ManageProducts = () => {
-  const products = [
-  {
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8fVGe_do2ll9b7n_dMP7QDLEPZFzKesm7Wg&s",
-    name: "White Shirt",
-    description: "Good quality shirt",
-    price: 2000,
-        status:"block",
-    id: "fsds21534"
-  },
-  {
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8fVGe_do2ll9b7n_dMP7QDLEPZFzKesm7Wg&s",
-    name: "White Shirt",
-    description: "Good quality shirt",
-    price: 2000,
-    status:"active",
-    id: "fsds61534"
-  }
-];
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [dispatch])
+
+  const { products, message, messageType, loading } = useSelector((state) => state.admin)
+  const prod = useSelector((state) => state.admin)
+  console.log(prod);
+  
+  console.log(message, messageType);
+
 
   const [showUpdateBox, setShowUpdateBox] = useState(false);
   const [showAddProductBox, setShowAddProductBox] = useState(false);
+  const [selectProduct, setSelectProduct] = useState({});
+
+
+  const handleUpdateProduct = (product) => {
+    setSelectProduct(product)
+    setShowUpdateBox(true)
+    console.log(product);
+
+  }
+  useEffect(() => {
+    
+    if (messageType == 1) {
+      handleSuccess(message);
+    }
+    if (messageType == 0) {
+      console.log(message);
+      handleError(message);
+    }
+if(message!== null){
+ dispatch(clearMessage())
+}
+  }, [message, messageType, clearMessage]);
+
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 relative ">
+{loading && <Loader/>}
+
       <h2 className="text-2xl font-bold mb-6">Product List</h2>
-<div className="flex  justify-end h-[100px] items-center">
+      {/* <div className="flex  justify-end h-[100px] items-center">
   <button type="button" className="outline-1 outline-offset-2 p-2 px-3 font-bold rounded bg-blue-100" onClick={() => setShowAddProductBox(!showAddProductBox)}>
     Add Product
   </button>
-</div>
+</div> */}
       <div className={`overflow-x-auto
-        ${showUpdateBox || showAddProductBox?"blur-sm":""}
+        ${showUpdateBox || showAddProductBox ? "blur-sm" : ""}
         `} >
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden ">
           <thead className="bg-gray-800 text-white">
@@ -40,51 +67,73 @@ const ManageProducts = () => {
               <th className="py-3 px-4 text-left">Name</th>
               <th className="py-3 px-4 text-left">Description</th>
               <th className="py-3 px-4 text-left">Price</th>
-              <th className="py-3 px-4 text-left">Status</th>
+              <th className="py-3 px-4 text-left">View</th>
               <th className="py-3 px-4 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr
-                key={product.id}
-                className=" hover:bg-gray-100 transition"
-              >
-                <td className="py-3 px-4">
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-20 h-20 object-cover rounded border"
-                    />
-                  ) : (
-                    <span className="text-gray-500">No Image</span>
-                  )}
-                </td>
-                <td className="py-3 px-4">{product.name}</td>
-                <td className="py-3 px-4">{product.description}</td>
-                <td className="py-3 px-4">Rs. {product.price}</td>
-                <td className="py-3 px-2 "> <p 
-                className={` ${product.status =="active"? "bg-green-500" :"bg-red-600" }
-                 w-min rounded-2xl text-white px-2 shadow-lg `}>{product.status}</p></td>
-                <td className="py-3 px-4 space-x-2">
-                  <button onClick={() => setShowUpdateBox(!showUpdateBox)} className="border-1 px-2 hover:bg-green-600 hover:text-white rounded hover:py-1">
-                    Edit
-                  </button>
-                  <button className="border-1 px-2 hover:bg-red-600 hover:text-white rounded hover:py-1">
-                    Delete
-                  </button>
+            {loading && loading ? (
+
+              <tr className="text-center">
+                <td>
+                  loading...
                 </td>
               </tr>
-              
-            ))}
-            
+
+            ) : (
+
+              products.map((product, key) => (
+
+
+                <tr
+                  key={key}
+                  className=" hover:bg-gray-100 transition"
+                >
+                  <td className="py-3 px-4">
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-20 h-20 object-cover rounded border"
+                      />
+                    ) : (
+                      <span className="text-gray-500">No Image</span>
+                    )}
+                  </td>
+                  <td className="py-3 px-4">{product.title}</td>
+                  <td className="py-3 px-4">{product.description}</td>
+                  <td className="py-3 px-4">Rs. {product.price}</td>
+                  <td className="py-3 px-2 ">
+                    <i className="fa-solid fa-link cursor-pointer text-lg" 
+                    onClick={()=> navigate('/')}
+                    ></i>
+                    </td>
+
+                  <td className="py-3 px-4 space-x-2">
+
+                    <button
+                      onClick={(e)=> { e.preventDefault(),
+                         dispatch(updateProductStatus(product._id))}}
+                      className={`border-1 px-2  hover:text-white rounded hover:py-1
+                  ${product.status==true ?"hover:bg-red-600":"hover:bg-green-500"}
+                  `}>
+                      {product.status == true ? "Block" : "Unblock"}
+                    </button>
+                  </td>
+                </tr>
+
+
+
+              ))
+
+            )
+            }
           </tbody>
         </table>
       </div>
 
-      {/* Dummy Modal UI */}
-      <div
+
+      {/* <div
   className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[400px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showUpdateBox ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}
   `}
@@ -137,16 +186,16 @@ onClick={() => setShowUpdateBox(!showUpdateBox)}
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
 
       <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[500px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showAddProductBox ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}
   `}>
 
         <h2 className="text-2xl font-semibold text-center">Add Product</h2>
-<i className="fa-solid fa-xmark text-3xl text-red-600 font-extrabold absolute right-5 top-5 border-2 border-black rounded p-1" 
-onClick={() => setShowAddProductBox(!showAddProductBox)}
-></i>
+        <i className="fa-solid fa-xmark text-3xl text-red-600 font-extrabold absolute right-5 top-5 border-2 border-black rounded p-1"
+          onClick={() => setShowAddProductBox(!showAddProductBox)}
+        ></i>
         <div className="flex flex-col gap-4">
           <div>
             <label htmlFor="name" className="block mb-1">Name</label>

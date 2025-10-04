@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../features/action/authAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleSuccess } from '../common/tosters';
 
 export default function Aside({ showAside, setShowAside }) {
   const [dropdown, setDropDown]=useState(false)
+
+  const { currentUser} = useSelector((state)=>state.auth);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());                   // clear redux + localStorage
+    handleSuccess("Logout Successfully"); // show toast after state clears
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
+  };
+  
   return (
   <aside
       className={`
@@ -33,13 +50,14 @@ export default function Aside({ showAside, setShowAside }) {
 <div className='relative bg-blue-50 rounded cursor-pointer'
 onClick={()=>setDropDown(!dropdown)}
 >
+
   <p className='text-black text-sm py-2 text-center transform transition-all ease-in-out delay-500 duration-500'>
-👨‍💼 Muhammad Ayesh ▼
+👨‍💼 {`${currentUser?.firstName} ${currentUser?.lastName}`} ▼
   </p>
   <div className={`bottom-[50px] w-full  flex items-center bg-blue-50 h-10 absolute  bg 
     ${dropdown ==true?"visible":"hidden"}
     `}>
-<Link onClick={()=> setShowAside(false)} className='hover:bg-red-200 py-1 px-2 text-red-600 w-full '> Logout</Link>
+<button type='button' onClick={(e)=> handleLogout(e)} className='hover:bg-red-200 py-1 px-2 text-red-600 w-full '> Logout</button>
   </div>
 </div>
     </aside>

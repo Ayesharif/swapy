@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import {logout} from '../../features/action/authAction'
+import { handleSuccess } from '../common/tosters';
+import { getprofile } from '../../features/action/userAction';
+import Loader from '../common/loader';
 
 export default function NavBar() {
+
     const [showbar, setshowbar] = useState(false);
     const [stickybar, setsstickybar] = useState(false);
-    const [userAvail, setuserAvail] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { currentUser, loading, message, messageType} = useSelector((state)=>state.user);
+// console.log(currentUser);
+
     useEffect(() => {
+
+        dispatch(getprofile())
         const handelbar = () => {
             if (window.scrollY > 200) {
                 setsstickybar(true);
@@ -20,7 +32,24 @@ export default function NavBar() {
         return () => {
             window.removeEventListener("scroll", handelbar);
         };
+
     }, []);
+
+const handleLogout = () => {
+  dispatch(logout());                   // clear redux + localStorage
+  setTimeout(() => {
+    handleSuccess("Logout Successfully"); // show toast after state clears
+    navigate("/login");
+  }, 3000);
+
+  useEffect(()=>{
+      if(loading){
+        return <Loader/>
+      }
+
+  })
+};
+
 
 
     return (
@@ -50,7 +79,7 @@ export default function NavBar() {
                 <i className='fa-solid fa-home text-2xl'></i>
                  </Link>
                 {
-                userAvail== true?(
+                 currentUser?.role=="user"?(
                 <>
                 <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/chats'}    >
                 
@@ -59,15 +88,16 @@ export default function NavBar() {
                 <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/profile'} > 
                 
                 <i className='fa-regular fa-user text-2xl'></i></Link>
-                 </>):("")}
-                {
-                    userAvail == false ? (
+                <Link  onClick={handleLogout} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/profile'} > 
+                
+                <i className='fa-solid fa-right-from-bracket text-2xl'></i></Link>
+                 </>):(
                         <>
                 <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/login'} >Login</Link>
                 
                 <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/register'}    > Register </Link>
                         </>
-            ):("")
+            )
         } 
                <Link  onClick={()=>{setshowbar(false)}} className='md:px-0 px-6 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/sellproduct'}    > 
                 <button className='border-3 px-4 py-1 rounded-3xl text-xl'><i className='fa-solid fa-plus'></i>Sell </button>
@@ -75,6 +105,7 @@ export default function NavBar() {
 
             </div>
         </div>
+
         </div>
     )
 }

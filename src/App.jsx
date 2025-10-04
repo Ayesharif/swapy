@@ -20,39 +20,75 @@ import ManageProducts from './pages/admin/product'
 import Category from './pages/admin/category'
 
 import User from './pages/admin/user'
+import ResetPassword from './pages/Auth/resetPassword'
+import ProtectedRoute from './component/common/ProtectedRoute'
+import { ToastContainer } from 'react-toastify'
+import Loader from './component/common/loader'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-<Routes>
-  <Route path='/' element={<UserLayout/>}>
-<Route index element={<Home/>} />
-<Route path='login' element={<Login/>} />
-<Route path='forgotpassword' element={<ForgotPassword/>} />
-<Route path='Otp' element={<OtpVerification/>} />
-<Route path='register' element={<Register/>} />
-<Route path='productlisting' element={<ProductListing/>} />
-<Route path='sellproduct' element={<SellProduct/>} />
-<Route path='profile' element={<Profile/>} />
-<Route path='detailpage/:id' element={<DetailPage/>} />
+
+      <Routes>
+        <Route path='/' element={<UserLayout />}>
+        
+          <Route index element={<Home />} />
+          <Route path='login' element={<Login />} />
+          <Route path='forgotpassword' element={<ForgotPassword />} />
+          <Route path='Otp/:email' element={<OtpVerification />} />
+          <Route path='register' element={<Register />} />
+          <Route path='resetpassword/:email/:otp' element={<ResetPassword />} />
+          <Route path='productlisting' element={<ProductListing />} />
+          <Route path='detailpage/:id' element={<DetailPage />} />
 
 
-  </Route>
-<Route path='chats' element={<Chats/>} />
+            <Route path='sellproduct' element={
+                        <ProtectedRoute requiredRole={["user"]}>
+
+                <SellProduct />
+              </ProtectedRoute>
+              } />
+
+            <Route path='profile' element={
+                        <ProtectedRoute requiredRole={["user"]}>
+
+                <Profile />
+              </ProtectedRoute>
+              } />
+          </Route>
+          
 
 
 
+        <Route path='chats' element={
+          <ProtectedRoute requiredRole={["user"]}>
+          <Chats />
+</ProtectedRoute>
+          } />
 
-<Route path='/admin' element={<AdminLayout/>} >
-<Route index element={<Dashboard/>} />
-<Route path='products' element={<ManageProducts/>} />
-<Route path='categories' element={<Category/>} />
-<Route path='users' element={<User/>} />
 
+
+<Route path='/loader' element={<Loader/>} >
 </Route>
-</Routes>
+  
+  
+
+<Route
+  path="/admin"
+  element={
+    <ProtectedRoute requiredRole="admin">
+      <AdminLayout />
+    </ProtectedRoute>
+  }
+>
+  <Route index element={<Dashboard />} />
+  <Route path="products" element={<ManageProducts />} />
+  <Route path="categories" element={<Category />} />
+  <Route path="users" element={<User />} />
+</Route>
+      </Routes>
     </>
   )
 }

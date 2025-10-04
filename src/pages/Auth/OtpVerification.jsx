@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { forgotPassword, verifyOtp } from '../../features/action/authAction';
+import { handleError, handleSuccess } from '../../component/common/tosters';
+import Loader from '../../component/common/loader';
+import { clearMessage } from '../../features/slices/authSlice';
 
 export default function OtpVerification() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
   const [otp, setOtp]=useState(["", "", "", "", "", ""]);
 
   const [SuccessBox, setSuccessBox]=useState(false);
-  const [messageType, setMessageType]=useState("");
-  const [message, setMessage]=useState("");
+  // const [messageType, setMessageType]=useState("");
+  // const [message, setMessage]=useState("");
+  const [lastAction, setLastAction] = useState(null);
+      const {loading, message, messageType, currentUser}=useSelector((state)=>state.auth);
+      const loadin=useSelector((state)=>state.auth);
+console.log(loadin);
+const { email } = useParams();
+
+  // console.log(email);
+
 
   const handleInput = (value, index)=>{
 
@@ -29,57 +43,80 @@ const fullOtp =[...otp];
 }
 
   }
- useEffect(() => {
-    if (messageType=="success") {
-      setSuccessBox(true); // show toast
-      const timer = setTimeout(() => {
-        setSuccessBox(false); // start hide animation
-       setTimeout(()=>{navigate("/login"), 4000})
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-    else
-    {
-      setSuccessBox(true); // show toast
-      const timer = setTimeout(() => {
-        setSuccessBox(false); // start hide animation
-      //  setTimeout(()=>{navigate("/login"), 4000})
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [messageType]);
 
   const handleSubmit =()=>{
     console.log(otp);
- if (otp.join("") === "123456") {
-  setMessage("Otp Veryfied Successfully")
-  setMessageType("success")
-  setOtpSuccess(true); // ✅ trigger success
-  // redirect
-} else {
-  setMessage("Error, Please enter correct code!")
-      setMessageType("error")
-      setOtpSuccess(true); 
+
+const OtpObject={
+  otp:otp.join(""),
+  email:email
+}
+setLastAction("verifyOtp");
+dispatch(verifyOtp(OtpObject))
+
+
+
+
+}
+
+  const handleResend = async e => {
+    e.preventDefault();
+
+    // console.log(email);
+    dispatch(forgotPassword(email))  
+
+ setTimeout(() => {
+  
+   if(message!== null){
+ dispatch(clearMessage())
+}
+ }, 3000);
+  };
+  
+
+ useEffect(() => {
+    if (messageType==1) {
+handleSuccess(message)
+  if (lastAction === "verifyOtp") {
+      setTimeout(() => {
+        navigate(`/resetpassword/${currentUser?.email}/${currentUser?.otp}`)
+      }, 2000);
     }
-   
-  }
+    }
+
+ else if(messageType==0)
+    {
+
+      handleError(message)
+    }
+
+
+      if (message !== null) {
+        dispatch(clearMessage());
+      }
+
+
+
+    },[message, messageType, currentUser, dispatch, clearMessage])
+    
 
     return (
     <div className='h-[80vh] w-screen flex flex-col items-center justify-center  relative '>
-           {SuccessBox && (
+          {loading && <Loader/>}
+           {/* {SuccessBox && (
         <div
           className={`
             fixed top-5 left-1/2 transform -translate-x-1/2
             text-white text-lg font-medium rounded z-50
             transition-all duration-500 ease-in-out
             ${SuccessBox ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}
-            ${messageType == "success" ? "bg-green-500" : messageType=="error"? "bg-red-600":"" }
+            ${messageType == 1 ? "bg-green-500" : messageType==0? "bg-red-600":"" }
             
           `}
         >
           <p className="py-2 px-5">{message}</p>
         </div>
-      )}
+      )} */}
 
       <div className='flex flex-col items-center gap-5 border border-gray-300 rounded-lg shadow-lg py-10 sm:w-[500px] w-[90%] text-center '>
         <p className='text-2xl font-bold'>OTP Verification</p>
@@ -100,7 +137,7 @@ const fullOtp =[...otp];
       className='w-[80%] bg-blue-950 text-white py-2 rounded-lg'>Verify</button>
       <div className='flex flex-row text-sm gap-2'>
         <p className='font-light'>Didn't receive the code?</p>
-        <p className='text-blue-700'>Resend</p>
+        <p onClick={handleResend} className='text-blue-700'>Resend</p>
       </div>
       </div>
     </div>

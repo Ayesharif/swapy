@@ -4,7 +4,7 @@ import NavBar from '../component/user/NavBar'
 import Footer from '../component/common/Footer'
 export default function UserLayout() {
   return (
-    <div className='overflow-x-hidden '>
+    <div className='min-h-[100] overflow-100vh-hidden '>
     <NavBar/>
         <Outlet />
 
