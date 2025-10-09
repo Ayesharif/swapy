@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../features/action/authAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSuccess } from '../common/tosters';
+import { getprofile } from '../../features/action/userAction';
 
 export default function Aside({ showAside, setShowAside }) {
   const [dropdown, setDropDown]=useState(false)
 
-  const { currentUser} = useSelector((state)=>state.auth);
+  const { currentUser} = useSelector((state)=>state.user);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+  useEffect(()=>{
+    dispatch(getprofile())
+  },[])
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());                   // clear redux + localStorage

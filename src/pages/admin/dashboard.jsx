@@ -38,7 +38,8 @@ export default function Dashboard() {
   }, [dispatch]);
 
   
-  const { categories, users, products, message, messageType, loading } = useSelector((state) => state.admin);
+  const { categories, users, message, messageType, loading } = useSelector((state) => state.admin);
+  const { products } = useSelector((state) => state.product);
   useEffect(() => {
     
     if (messageType == 0) {

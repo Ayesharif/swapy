@@ -21,35 +21,84 @@ export const getActiveProducts = createAsyncThunk('activeProducts', async (data,
         return rejectWithValue(error.message)
     }
 })
-
-
-
-export const createProduct = createAsyncThunk('createProduct', async (data, { rejectWithValue }) => {
+export const getCategoryProducts = createAsyncThunk('getCategoryProducts', async (data, { rejectWithValue }) => {
     try {
-        console.log(data)
-        const response = await fetch('https://swapy-backend.vercel.app/user/product', {
-            method: "POST",
-
-            body: data,
-            credentials:"include"
+        const response = await fetch(`https://swapy-backend.vercel.app/category/products/${data}`, {
+            credentials: "include"
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            return rejectWithValue(errorData);
         }
-        )
-                 if (!response.ok) {
-              const errorData = await response.json(); 
-              return rejectWithValue(errorData);
-            }
+
         const result = await response.json()
-        console.log(result)
+        console.log(result);
         return result
+
     } catch (error) {
-        return rejectWithValue(error)
+        return rejectWithValue(error.message)
     }
 })
+
+export const searchProducts = createAsyncThunk('searchProducts', async (data, { rejectWithValue }) => {
+    try {
+        const title =data?.title;
+        const city =data?.city;
+        const price =data?.price;
+const queryParams = new URLSearchParams({
+  ...(title && { title }),
+  ...(city && { city }),
+  ...(price && { price }),
+});
+
+        const response = await fetch(`https://swapy-backend.vercel.app/product?${queryParams}`, {
+           method:"Get",
+            credentials: "include"
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            return rejectWithValue(errorData);
+        }
+
+        const result = await response.json()
+        console.log(result);
+        return result
+
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+})
+
+
+export const getDetailProducts = createAsyncThunk('getDetailProducts', async (data, { rejectWithValue }) => {
+    console.log(data);
+    
+    try {
+        const response = await fetch(`https://swapy-backend.vercel.app/product/${data}`, {
+            credentials: "include"
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            return rejectWithValue(errorData);
+        }
+
+        const result = await response.json()
+        console.log(result);
+        return result
+
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+})
+
+
+
+
 
 export const getAllUserCategories = createAsyncThunk('allCategories', async (data, { rejectWithValue }) => {
 
     try {
-        const response = await fetch('https://swapy-backend.vercel.app/admin/categories', {
+        const response = await fetch('https://swapy-backend.vercel.app/categories', {
             method:"Get",
             credentials: "include"
 

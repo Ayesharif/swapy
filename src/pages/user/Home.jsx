@@ -1,26 +1,43 @@
-import React from 'react'
-import { categories } from '../../utils/categories'
+import React, { useEffect, useState } from 'react'
+
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { products } from '../../utils/products'
+import { useDispatch, useSelector } from 'react-redux'
+
 import SearchBar from '../../component/user/SearchBar'
 import ProductCart from '../../component/user/ProductCart'
+import { getActiveProducts, getAllUserCategories, searchProducts } from '../../features/action/productAction'
+import Loader from '../../component/common/loader'
 
 export default function Home() {
+    const [data, setData] = useState({});
+const dispatch= useDispatch();
+    const navigate = useNavigate();
 
-const navigate= useNavigate();
+useEffect(()=>{
+    dispatch(getActiveProducts())
+    dispatch(getAllUserCategories())
+},[])
+
+const handleSearch=(e)=>{
+  e.defaultPrevent();
+  dispatch(searchProducts(data))
+}
+      const { products, categories, message, messageType, loading } = useSelector((state) => state.product)
+
   return (
     <div className=' w-screen flex flex-col items-center justify-center'>
+{loading && <Loader/>}
+
      <SearchBar/>
       <div className='flex flex-wrap items-center justify-center sm:px-30 py-10 gap-5'>
         {categories.map((item, key) => (
           <div className='' key={key}
-           onClick={()=>navigate('/productlisting')}
+           onClick={()=>navigate(`/productlisting/${item._id}`)}
           >
             <div className='w-[100px] h-[100px] flex items-center justify-center bg-blue-50 rounded-2xl'>
-              <img className='w-[80px] rounded-xl' src={item.image} alt="" />
+              <img className='w-[80px] rounded-xl' src={`${import.meta.env.VITE_API_BASE_URL}${item.image}`} alt="" />
             </div> 
-            <p className='text-center'>{item.main_category}</p>
+            <p className='text-center'>{item.category}</p>
           </div>
         ))
         }
@@ -29,7 +46,7 @@ const navigate= useNavigate();
 <div className='sm:w-[95%] py-6 flex flex-col gap-5'>
   {categories.map((cat, i) => {
     const category_products = products.filter(
-      (p) => p.category === cat.main_category
+      (p) => p.category === cat._id
     );
 
     if (category_products.length === 0) return null; // skip empty categories
@@ -39,8 +56,8 @@ const navigate= useNavigate();
       <div key={i} className='w-[95vw]  flex flex-col bg-blue-50 p-4 rounded-lg'>
         {/* Category Header */}
         <div className='flex items-center justify-between px-5'>
-          <p className='text-xl font-medium'>{cat.main_category}</p>
-          <Link to={`/productlisting/${cat.main_category}`}>See all</Link>
+          <p className='text-xl font-medium'>{cat.category}</p>
+          <Link to={`/productlisting/${cat._id}`}>See all</Link>
         </div>
 
         {/* Category Products */}

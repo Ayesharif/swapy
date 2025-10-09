@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct, getAllUserCategories } from '../../features/action/productAction';
+import {  getAllUserCategories } from '../../features/action/productAction';
+import { createProduct } from '../../features/action/userAction';
+import { handleError, handleSuccess } from '../../component/common/tosters';
+import { clearMessage } from '../../features/slices/userSlice';
+import Loader from '../../component/common/loader';
 
 
 export default function SellProduct() {
@@ -10,9 +14,9 @@ useEffect(()=>{
   dispatch(getAllUserCategories())
 }, [dispatch])
 
-const {categories}= useSelector((state)=>state.product)
-const cat= useSelector((state)=>state.product)
-console.log(cat);
+const {message, messageType, loading}= useSelector((state)=>state.user)
+const {categories,}= useSelector((state)=>state.product)
+
 
 const [showImages, setShowImages] = useState({});
 
@@ -28,13 +32,14 @@ const [showImages, setShowImages] = useState({});
     const files = Array.from(e.target.files); // convert FileList to array
     const previews = files.map((file) => URL.createObjectURL(file));
     setShowImages(files);
+    
   };
   const updateImages=(image)=>{
 console.log(image);
 // files.current.files.filter(img=>)
 const preview = showImages.filter(item=>item !== image);
 setShowImages(preview)
-setData({...data, images:pr})
+setData({...data, images:preview})
   }
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -55,9 +60,23 @@ const handleSubmit = (e) => {
   dispatch(createProduct(formData));
 };
 
+  useEffect(() => {
+    if (messageType == 1) {
+      handleSuccess(message)
+    }
+    else if (messageType == 0) {
+      handleError(message)
+    }
+    if (messageType !== null) {
+      dispatch(clearMessage()); // an action you create to reset {message, messageType}
+    }
+  }, [message, messageType, dispatch])
+
+
 
 return (
 <div className='flex w-screen min-h-[80vh] items-center flex-col'>
+  {loading && <Loader/>}
 
       <div className={` md:w-[600px] w-[90%] `}>
 

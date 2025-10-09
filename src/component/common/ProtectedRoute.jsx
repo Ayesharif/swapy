@@ -1,51 +1,39 @@
-// import React from 'react'
-// import { useSelector } from "react-redux";
-// import { Navigate, Outlet, useNavigate } from "react-router-dom";
-
-// const ProtectedRoute=({allowedRoles})=> {
-//   const {IsLogin,currentUser}=useSelector(state=>state.auth);
-//   console.log(IsLogin, currentUser.role);
-//   if(!IsLogin){
-//     return <Navigate to="/login" replace />;
-//   }
-//   console.log(allowedRoles);
-  
-//   if (currentUser && allowedRoles && !allowedRoles.includes(currentUser.role)) {
-//     // Redirect based on role
-//     return <Navigate to={currentUser.role === 'admin' ? "/admin":"/"} replace />;
-//   }
-
-//   return <Outlet />;
-// };
-
-// export default ProtectedRoute;
-
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "./loader";
-import { useDispatch, useSelector } from "react-redux";
-import { checkUser } from "../../features/action/authAction";
 
 
 export default function ProtectedRoute({children}){
-    const {loading, IsLogin} = useSelector((state)=>state.auth)
+    const [loading, setLoading] = useState(true)
     const [isAuth, setIsAuth] = useState(false)
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
-console.log(IsLogin);
-
+    const checkUser = async ()=>{
+        console.log("here")
+        const response = await fetch('https://swapy-backend.vercel.app/authMe', {
+            method: "GET",
+            credentials : 'include'
+        })
+        console.log(response, " response1")
+        if(response.ok){
+            console.log(response, "response2")
+            setIsAuth(true)
+            setLoading(false)
+            return response
+        }else{
+            setLoading(false)
+            return null
+        }
+    }
 
 
     useEffect( ()=>{
-dispatch(checkUser())
-        if(loading) return <Loader/>
-        if(!IsLogin){
-            return navigate('/login')
-        }
+        checkUser()
     },[])
 
+    if(loading) return <Loader/>
+    if(!isAuth){
+        return navigate('/login')
+    }
     return children;
 }

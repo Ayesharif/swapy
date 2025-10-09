@@ -40,7 +40,8 @@ function App() {
           <Route path='Otp/:email' element={<OtpVerification />} />
           <Route path='register' element={<Register />} />
           <Route path='resetpassword/:email/:otp' element={<ResetPassword />} />
-          <Route path='productlisting' element={<ProductListing />} />
+<Route path="productlisting/:id?" element={<ProductListing />} />
+
           <Route path='detailpage/:id' element={<DetailPage />} />
 
 
@@ -51,8 +52,15 @@ function App() {
               </ProtectedRoute>
               } />
 
+            <Route path='profile/:id' element={
+                       
+                <Profile />
+
+              } />
+          
+
             <Route path='profile' element={
-                        <ProtectedRoute requiredRole={["user"]}>
+                        <ProtectedRoute requiredRole={["user"]}>  
 
                 <Profile />
               </ProtectedRoute>

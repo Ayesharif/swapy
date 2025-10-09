@@ -26,12 +26,7 @@ const ManageProducts = () => {
   const [selectProduct, setSelectProduct] = useState({});
 
 
-  const handleUpdateProduct = (product) => {
-    setSelectProduct(product)
-    setShowUpdateBox(true)
-    console.log(product);
 
-  }
   useEffect(() => {
     
     if (messageType == 1) {
@@ -52,11 +47,7 @@ if(message!== null){
 {loading && <Loader/>}
 
       <h2 className="text-2xl font-bold mb-6">Product List</h2>
-      {/* <div className="flex  justify-end h-[100px] items-center">
-  <button type="button" className="outline-1 outline-offset-2 p-2 px-3 font-bold rounded bg-blue-100" onClick={() => setShowAddProductBox(!showAddProductBox)}>
-    Add Product
-  </button>
-</div> */}
+    
       <div className={`overflow-x-auto
         ${showUpdateBox || showAddProductBox ? "blur-sm" : ""}
         `} >
@@ -74,12 +65,7 @@ if(message!== null){
           <tbody>
             {loading && loading ? (
 
-              <tr className="text-center">
-                <td>
-                  loading...
-                </td>
-              </tr>
-
+          <Loader/>
             ) : (
 
               products.map((product, key) => (
@@ -90,9 +76,9 @@ if(message!== null){
                   className=" hover:bg-gray-100 transition"
                 >
                   <td className="py-3 px-4">
-                    {product.image ? (
+                    {product.images ? (
                       <img
-                        src={product.image}
+src={`${import.meta.env.VITE_API_BASE_URL}${product.images[0]}`}
                         alt={product.title}
                         className="w-20 h-20 object-cover rounded border"
                       />
@@ -105,7 +91,7 @@ if(message!== null){
                   <td className="py-3 px-4">Rs. {product.price}</td>
                   <td className="py-3 px-2 ">
                     <i className="fa-solid fa-link cursor-pointer text-lg" 
-                    onClick={()=> navigate('/')}
+                    onClick={()=> navigate(`/detailpage/${product._id}`)}
                     ></i>
                     </td>
 
@@ -133,7 +119,7 @@ if(message!== null){
       </div>
 
 
-      {/* <div
+      <div
   className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[400px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showUpdateBox ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}
   `}
@@ -186,7 +172,7 @@ onClick={() => setShowUpdateBox(!showUpdateBox)}
             </button>
           </div>
         </form>
-      </div> */}
+      </div>
 
       <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[500px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showAddProductBox ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}

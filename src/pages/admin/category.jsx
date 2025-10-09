@@ -44,7 +44,7 @@ const handleSubmit =(e)=>{
        // single file
     }
  dispatch(addCategory(formData))
-    //  dispatch(getAllCategories())
+
 console.log(data);
 }
 
@@ -52,10 +52,7 @@ const handleDelete = (e, id) => {
   e.preventDefault();
   if (window.confirm("Are you sure you want to delete this category?")) {
     dispatch(deleteCategory(id));
-    setTimeout(() => {
-      dispatch(getAllCategories());
-      
-    }, 3000);
+
   }
 };
 
@@ -67,8 +64,6 @@ setTimeout(() => {
   
   setShowUpdateBox(true)
 }, 300);
-
-
 }
 console.log(updatedata);
 
@@ -78,18 +73,25 @@ const handleUpdate = (e) => {
     handleError("No category selected to update");
     return;
   }
+     const formData = new FormData();
+    formData.append("category", data.category);
 
+    if (data.image) {
+      formData.append("image", data.image);
+      console.log("dsds",data.image);
+       // single file
+    }
   const payload = {
-    id: data.id,              // <- use data.id (not updatedata)
-    category: data.category
+    id: data.id,             
+form:formData
   };
 
   console.log("Updating with:", payload);
-  dispatch(updatedCategory(payload));
-setTimeout(() => {
-  dispatch(getAllCategories());
-  
-}, 3000);
+  dispatch(updatedCategory({
+    id: data.id,             
+form:formData
+  }));
+
   setShowUpdateBox(false);
   setData({});
 };
@@ -139,7 +141,8 @@ if(message!== null){
       <td className="py-3 px-4">
         <img
           className="w-[100px]"
-          src={`https://swapy-backend.vercel.app/${category.image}`}
+src={`${import.meta.env.VITE_API_BASE_URL}${category.image}`}
+
           alt=""
         />
       </td>
@@ -174,7 +177,7 @@ if(message!== null){
 
       </div>
 
-      { data?.category ?(
+
 
       <div 
   className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[400px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
@@ -203,7 +206,6 @@ onClick={() => setShowUpdateBox(false)}
             onChange={handelField}
               type="file"
               className="w-full border px-3 py-2 rounded"
-              
               name='image'
             />
           </div>
@@ -220,8 +222,7 @@ onClick={() => setShowUpdateBox(false)}
             </button>
           </div>
         </form>
-      </div>):("")
-}
+      </div>
             <div
   className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-[400px] w-[90%] p-6 bg-blue-50 rounded shadow transition-all duration-500 ease-in-out
     ${showAddCat ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}

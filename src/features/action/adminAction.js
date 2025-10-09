@@ -95,13 +95,8 @@ export const updatedCategory = createAsyncThunk('updateCategory', async (data, {
         console.log(data)
         const response = await fetch(`https://swapy-backend.vercel.app/admin/category/${data.id}`, {
             method: "Put",
-            headers: {
-                "Content-Type": "application/json",
-
-            },
-            body: JSON.stringify({
-                category:data.category
-            }),
+            
+            body: data.form,
         credentials:"include"
         }
         )

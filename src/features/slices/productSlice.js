@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createProduct, getActiveProducts } from "../../features/action/productAction";
+import {  getActiveProducts, getCategoryProducts, getDetailProducts, searchProducts } from "../../features/action/productAction";
 import { getAllUserCategories } from "../action/productAction";
 
 export const productSlice = createSlice({
@@ -7,11 +7,17 @@ export const productSlice = createSlice({
 initialState:{
     products:[],
     categories:[],
+    currentProduct:{},
 message: null,
 messageType: null,
 loading:false
 },
-    reducers: {},
+    reducers: {
+          clearMessage: (state) => {
+      state.message = "";
+      state.messageType = null;
+    },
+    },
   extraReducers:(builder)=>{
 builder
 .addCase(getActiveProducts.pending, (state)=>{
@@ -21,31 +27,61 @@ builder
   console.log(action.payload.data);
   state.loading=false;
   state.products=action.payload.data;
-  
-    state.message=action.payload.message;
-  state.messageType=action.payload.status;
+
 })
 .addCase(getActiveProducts.rejected, (state, action)=>{
   state.loading=false;
     state.message=action.payload.message;
   state.messageType=action.payload.status;
-
 })
-.addCase(createProduct.pending, (state)=>{
+
+.addCase(getCategoryProducts.pending, (state)=>{
   state.loading=true;
 })
-.addCase(createProduct.fulfilled, (state, action)=>{
+.addCase(getCategoryProducts.fulfilled, (state, action)=>{
+  console.log(action.payload.data);
   state.loading=false;
-  console.log(action.payload);
-  state.products.push(action.payload.data)
+  state.products=action.payload.data;
+
+})
+.addCase(getCategoryProducts.rejected, (state, action)=>{
+  state.loading=false;
+    state.message=action.payload.message;
+  state.messageType=action.payload.status;
+
+})
+.addCase(searchProducts.pending, (state)=>{
+  state.loading=true;
+})
+.addCase(searchProducts.fulfilled, (state, action)=>{
+  console.log(action.payload.data);
+  state.loading=false;
+  state.products=action.payload.data;
     state.message=action.payload.message;
   state.messageType=action.payload.status;
 })
-.addCase(createProduct.rejected, (state, action)=>{
+.addCase(searchProducts.rejected, (state, action)=>{
   state.loading=false;
-  state.message=action.payload.message;
+    state.message=action.payload.message;
   state.messageType=action.payload.status;
+
 })
+.addCase(getDetailProducts.pending, (state)=>{
+  state.loading=true;
+})
+.addCase(getDetailProducts.fulfilled, (state, action)=>{
+  console.log(action.payload.data);
+  state.loading=false;
+  state.currentProduct=action.payload.data;
+
+})
+.addCase(getDetailProducts.rejected, (state, action)=>{
+  state.loading=false;
+    state.message=action.payload.message;
+  state.messageType=action.payload.status;
+
+})
+
 .addCase(getAllUserCategories.pending, (state)=>{
   state.loading=true;
 })
@@ -62,5 +98,5 @@ builder
 
 },
 });
-
+export const { clearMessage } = productSlice.actions;
 export default productSlice.reducer;

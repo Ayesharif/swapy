@@ -12,7 +12,8 @@ export default function NavBar() {
     const [stickybar, setsstickybar] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { currentUser, loading, message, messageType} = useSelector((state)=>state.user);
+    const { currentUser} = useSelector((state)=>state.user);
+    const {  loading, message, messageType} = useSelector((state)=>state.auth);
 // console.log(currentUser);
 
     useEffect(() => {

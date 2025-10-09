@@ -22,9 +22,9 @@ const navigate= useNavigate();
                min-w-[200px]  border-1 border-gray-400 rounded-lg bg-white shadow hover:shadow-md transition`}
             >
               <img
-                src={product.images[0]}
+                src={`${import.meta.env.VITE_API_BASE_URL}${product.images[0]}`}
                 alt={product.name}
-                              onClick={()=> navigate(`/detailpage/${product.id}`)}
+                              onClick={()=> navigate(`/detailpage/${product._id}`)}
                 className={`
                   ${showGrid==true?"w-full":"w-[40%] "}
                   h-70 object-cover rounded `}
@@ -36,7 +36,7 @@ const navigate= useNavigate();
                 onClick={()=>setfav(!Fav)}
                 ></i>
               <p className='px-2 text-xl font-medium'>RS {product.price}</p>
-              <p className='px-2 mt-2 text-gray-800 '>{product.name}</p>
+              <p className='px-2 mt-2 text-gray-800 '>{product.title}</p>
               <p className='px-2 text-sm text-gray-600'>{product.description}</p>
               <div className={`${actionBtn== showAction?"hidden":"flex"} 
                 flex-col products-center gap-2  items-center`}>
