@@ -40,10 +40,10 @@ return (
   {loading && <Loader/>}
 <FilterBar gridView={gridView} setGridView={setGridView} />
 
-  <div className='flex flex-col items-center'>
+  <div className='flex w-[90%] flex-col items-center'>
 <div className={`
   w-[80%] grid  gap-4 py-4  
-  ${gridView==true ?"sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4":"grid-cols-1"}
+  ${gridView==true ?"sm:grid-cols-2 lg:grid-cols-3":"grid-cols-1"}
   `}>
           {products.map((item, j) => (
             

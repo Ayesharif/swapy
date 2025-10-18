@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  getActiveProducts, getCategoryProducts, getDetailProducts, searchProducts } from "../../features/action/productAction";
+import {  getActiveProducts, getCategoryProducts, getDetailProducts, getPublicProfile, searchProducts } from "../../features/action/productAction";
 import { getAllUserCategories } from "../action/productAction";
 
 export const productSlice = createSlice({
@@ -8,6 +8,7 @@ initialState:{
     products:[],
     categories:[],
     currentProduct:{},
+    currentUser:{},
 message: null,
 messageType: null,
 loading:false
@@ -94,7 +95,21 @@ builder
   state.message=action.payload.message;
   state.messageType=action.payload.status;
 })
-
+.addCase(getPublicProfile.pending, (state)=>{
+  state.loading=true;
+})
+.addCase(getPublicProfile.fulfilled, (state, action)=>{
+  state.loading=false;
+  state.currentUser=action.payload.data;
+  state.products=action.payload.products;
+  //  state.message=action.payload.message;
+  // state.messageType=action.payload.status;
+ })
+.addCase(getPublicProfile.rejected, (state, action)=>{
+  state.loading=false;
+  state.message=action.payload.message;
+  state.messageType=action.payload.status;
+})
 
 },
 });

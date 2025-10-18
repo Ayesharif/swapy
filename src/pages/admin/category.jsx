@@ -27,7 +27,7 @@ const {categories, loading, message, messageType}  = useSelector((state)=>state.
 
   const handelField = (e) => {
     if (e.target.type === "file") {
-      setData({ ...data, image: e.target.files[0] }); // store file object
+      setData({ ...data, [e.target.name]: e.target.files[0] }); // store file object
     } else {
       setData({ ...data, [e.target.name]: e.target.value });
     }
@@ -56,41 +56,46 @@ const handleDelete = (e, id) => {
   }
 };
 
-const editData =(e, data)=>{
+const editData =(e, Data)=>{
  e.preventDefault();
-setData({category:data.category, id:data._id})
-console.log(data);
+ console.log(Data);
+ 
+setData(Data)
 setTimeout(() => {
   
+  console.log(data);
   setShowUpdateBox(true)
 }, 300);
 }
-console.log(updatedata);
 
+// console.log(updatedata);
 const handleUpdate = (e) => {
   e.preventDefault();
-  if (!data?.id) {
+  if (!data?._id) {
     handleError("No category selected to update");
     return;
   }
-     const formData = new FormData();
-    formData.append("category", data.category);
+  const formData = new FormData();
+  formData.append("category", data.category);
+  formData.append('imageId', data?.image?.publicId);
+  
+  if (data.newImage) {
+    formData.append("image", data.newImage);
+    console.log("dsds",data.newImage);
+    // single file
+  }
+//   const payload = {
+//     id: data.id,             
+// form:formData
+//   };
 
-    if (data.image) {
-      formData.append("image", data.image);
-      console.log("dsds",data.image);
-       // single file
-    }
-  const payload = {
-    id: data.id,             
-form:formData
-  };
-
-  console.log("Updating with:", payload);
+  // console.log("Updating with:", payload);
   dispatch(updatedCategory({
-    id: data.id,             
+    id: data._id,             
 form:formData
   }));
+console.log(data);
+
 
   setShowUpdateBox(false);
   setData({});
@@ -141,7 +146,7 @@ if(message!== null){
       <td className="py-3 px-4">
         <img
           className="w-[100px]"
-src={`${import.meta.env.VITE_API_BASE_URL}${category.image}`}
+src={`${category.image.image}`}
 
           alt=""
         />
@@ -206,7 +211,7 @@ onClick={() => setShowUpdateBox(false)}
             onChange={handelField}
               type="file"
               className="w-full border px-3 py-2 rounded"
-              name='image'
+              name='newImage'
             />
           </div>
 

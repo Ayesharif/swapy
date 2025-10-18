@@ -14,7 +14,7 @@ onClick={()=>setDropDown(!dropdown)}
 
 All Categories <i className={`fa-solid ${ dropdown==true?"fa-angle-down":"fa-angle-up"}`}></i>
   </p>
-  <div className={`w-full flex flex-col items-center bg-blue-50  absolute  bg 
+  <div className={`w-full flex flex-col items-center bg-blue-50  absolute  z-10 
     ${dropdown ==true?"visible":"hidden"}
     `}>
       { categories.map((category, key)=>(

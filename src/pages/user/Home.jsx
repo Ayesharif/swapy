@@ -35,7 +35,7 @@ const handleSearch=(e)=>{
            onClick={()=>navigate(`/productlisting/${item._id}`)}
           >
             <div className='w-[100px] h-[100px] flex items-center justify-center bg-blue-50 rounded-2xl'>
-              <img className='w-[80px] rounded-xl' src={`${import.meta.env.VITE_API_BASE_URL}${item.image}`} alt="" />
+              <img className='w-[80px] rounded-xl' src={`${item.image.image}`} alt="" />
             </div> 
             <p className='text-center'>{item.category}</p>
           </div>
@@ -48,6 +48,9 @@ const handleSearch=(e)=>{
     const category_products = products.filter(
       (p) => p.category === cat._id
     );
+    console.log(products);
+    console.log(cat);
+    
 
     if (category_products.length === 0) return null; // skip empty categories
 
@@ -59,7 +62,8 @@ const handleSearch=(e)=>{
           <p className='text-xl font-medium'>{cat.category}</p>
           <Link to={`/productlisting/${cat._id}`}>See all</Link>
         </div>
-
+{console.log(category_products)
+}
         {/* Category Products */}
         <div className='w-[100%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-4 overflow-x-auto'>
           {category_products.slice(0,4).map((item, j) => (

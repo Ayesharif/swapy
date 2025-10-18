@@ -11,7 +11,7 @@ import Loader from '../../component/common/loader';
 export default function DetailPage() {
     const [count, setCount] = useState(0)
     const [number, setnumber] = useState("Show phone number")
-   const { currentUser } = useSelector((state) => state.user)
+   const { currentUser } = useSelector((state) => state.auth)
 
     const { id } = useParams();
 console.log(id);
@@ -26,7 +26,7 @@ useEffect(()=>{
       const { currentProduct, message, messageType, loading } = useSelector((state) => state.product)
     const product = currentProduct?.product
     const user = currentProduct?.userData;
-    console.log(product);
+    // console.log(product);
     
    const handleNumber=()=>{
        if(currentUser?.email){
@@ -42,6 +42,9 @@ useEffect(()=>{
     // const imageCount = product.images.length;
     const [currentIndex, setCurrentIndex] = useState(0);
 const imageCount = product?.images?.length || 0;
+
+console.log("image",imageCount);
+
 
     const handleLeft = () => {
         setCurrentIndex((prev) =>
@@ -79,7 +82,7 @@ const imageCount = product?.images?.length || 0;
     key={key}
     className=" flex transition-transform duration-500 ease-in-out"
     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-    src={`${import.meta.env.VITE_API_BASE_URL}${image}`}
+    src={`${image.imageUrl}`}
     alt=""
   />
 ))}
@@ -109,7 +112,7 @@ const imageCount = product?.images?.length || 0;
                     <div className=' flex flex-col gap-7 '>
                         <div className="flex flex-col border border-gray-300 rounded items-center w-[100%] justify-between p-2 ">
                             <div className="flex items-center w-[100%] justify-between  py-3"
-                            onClick={() => navigate(`/profile/${product?.postedBy}`)}
+                            onClick={() => navigate(`/public-profile/${product?.postedBy}`)}
                             >
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-user text-4xl"></i>

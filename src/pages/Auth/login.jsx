@@ -11,7 +11,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const {loading, currentUser, message, messageType }=useSelector((state)=>state.auth)
+  const {IsLogin, loading, currentUser, message, messageType }=useSelector((state)=>state.auth)
 
     const [loginData, setloginData] = useState({email:"", password:""});
     
@@ -84,7 +84,7 @@ useEffect(() => {
   if (messageType == 1 && currentUser?.role === "user") {
     handleSuccess(message);
     setTimeout(() => {
-      navigate('/profile');
+      navigate(`/public-profile/${currentUser.id}`);
     }, 1000 );
   } 
   else if (messageType == 1 && currentUser?.role === "admin") {
@@ -93,7 +93,9 @@ useEffect(() => {
       navigate('/admin');
     }, 1000);
   }
-
+if(IsLogin){
+  navigate("/")
+}
   if (messageType == 0) {
     handleError(message);
   }

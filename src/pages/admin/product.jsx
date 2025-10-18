@@ -78,7 +78,7 @@ if(message!== null){
                   <td className="py-3 px-4">
                     {product.images ? (
                       <img
-src={`${import.meta.env.VITE_API_BASE_URL}${product.images[0]}`}
+src={`${product.images[0].imageUrl}`}
                         alt={product.title}
                         className="w-20 h-20 object-cover rounded border"
                       />

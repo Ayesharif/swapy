@@ -115,3 +115,27 @@ export const getAllUserCategories = createAsyncThunk('allCategories', async (dat
         return rejectWithValue(error.message)
     }
 })
+
+export const getPublicProfile = createAsyncThunk('getPublicProfile', async (data, { rejectWithValue }) => {
+    // const dispatch = useDispatch()
+    console.log(data);
+    
+    try {
+        const response = await fetch(`https://swapy-backend.vercel.app/public-profile?id=${data}`, {
+          method:"Get",
+            credentials: "include"
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            return rejectWithValue(errorData);
+        }
+
+        const result = await response.json()
+        
+        console.log(result);
+        return result
+
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+})

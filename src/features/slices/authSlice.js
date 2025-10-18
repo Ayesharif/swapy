@@ -127,14 +127,14 @@ builder.addCase(login.pending, (state)=>{
 .addCase(checkUser.fulfilled, (state, action)=>{
   state.loading=false;
   state.currentUser=action.payload.data;
-  state.message=action.payload.message;
-  state.messageType=action.payload.status;
+  // state.message=action.payload.message;
+  // state.messageType=action.payload.status;
   state.IsLogin=true;
 })
 .addCase(checkUser.rejected, (state, action)=>{
   state.loading=false;
-  state.message=action.payload.message;
-  state.messageType=action.payload.status;
+  // state.message=action.payload.message;
+  // state.messageType=action.payload.status;
 })
 
 },

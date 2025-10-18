@@ -24,6 +24,11 @@ import ResetPassword from './pages/Auth/resetPassword'
 import ProtectedRoute from './component/common/ProtectedRoute'
 import { ToastContainer } from 'react-toastify'
 import Loader from './component/common/loader'
+import MyAds from './pages/user/myAds'
+import ManageProfile from './pages/user/ManageProfile'
+import NavBar from './component/user/NavBar'
+import UserDropdown from './component/user/userDropDown'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,16 +37,29 @@ function App() {
     <>
 
       <Routes>
+          <Route path='/nav' element={<UserDropdown />} />
         <Route path='/' element={<UserLayout />}>
         
-          <Route index element={<Home />} />
           <Route path='login' element={<Login />} />
+          <Route index element={<Home />} />
           <Route path='forgotpassword' element={<ForgotPassword />} />
           <Route path='Otp/:email' element={<OtpVerification />} />
           <Route path='register' element={<Register />} />
           <Route path='resetpassword/:email/:otp' element={<ResetPassword />} />
 <Route path="productlisting/:id?" element={<ProductListing />} />
 
+          <Route path='myads/' element={
+            <ProtectedRoute>
+
+            <MyAds />
+            </ProtectedRoute> 
+            } />
+          <Route path='manage-profile/' element={
+            <ProtectedRoute>
+
+            <ManageProfile />
+            </ProtectedRoute> 
+            } />
           <Route path='detailpage/:id' element={<DetailPage />} />
 
 
@@ -52,20 +70,19 @@ function App() {
               </ProtectedRoute>
               } />
 
-            <Route path='profile/:id' element={
+            <Route path='public-profile/:id' element={
                        
                 <Profile />
 
               } />
           
 
-            <Route path='profile' element={
+            {/* <Route path='profile' element={
                         <ProtectedRoute requiredRole={["user"]}>  
 
                 <Profile />
               </ProtectedRoute>
-              } />
-          </Route>
+              } /> */}
           
 
 
@@ -75,10 +92,11 @@ function App() {
           <Chats />
 </ProtectedRoute>
           } />
-
-
+          </Route>
 
 <Route path='/loader' element={<Loader/>} >
+
+
 </Route>
   
   
