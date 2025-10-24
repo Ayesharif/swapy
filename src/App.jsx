@@ -28,6 +28,8 @@ import MyAds from './pages/user/myAds'
 import ManageProfile from './pages/user/ManageProfile'
 import NavBar from './component/user/NavBar'
 import UserDropdown from './component/user/userDropDown'
+import Nav from './component/user/Nav'
+import MyFavourite from './pages/user/MyFavourite'
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
     <>
 
       <Routes>
-          <Route path='/nav' element={<UserDropdown />} />
+          <Route path='/nav' element={<Nav />} />
         <Route path='/' element={<UserLayout />}>
         
           <Route path='login' element={<Login />} />
@@ -54,6 +56,14 @@ function App() {
             <MyAds />
             </ProtectedRoute> 
             } />
+
+          <Route path='myfavourite/' element={
+            <ProtectedRoute>
+
+            <MyFavourite />
+            </ProtectedRoute> 
+            } />
+
           <Route path='manage-profile/' element={
             <ProtectedRoute>
 

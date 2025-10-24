@@ -64,11 +64,8 @@ console.log(data);
     }
 
     dispatch(updateProfile(formData));
-    setData({});
-
-    if (!loading) {
-      setTimeout(() => setShowUpdateBox(false), 300);
-    }
+   
+   
   };
 
 

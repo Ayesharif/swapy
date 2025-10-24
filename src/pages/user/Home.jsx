@@ -29,15 +29,16 @@ const handleSearch=(e)=>{
 {loading && <Loader/>}
 
      <SearchBar/>
-      <div className='flex flex-wrap items-center justify-center sm:px-30 py-10 gap-5'>
+
+      <div className='flex flex-wrap items-center  sm:px-30 px-10 py-10 gap-5'>
         {categories.map((item, key) => (
-          <div className='' key={key}
+          <div className='flex flex-col items-center' key={key}
            onClick={()=>navigate(`/productlisting/${item._id}`)}
           >
             <div className='w-[100px] h-[100px] flex items-center justify-center bg-blue-50 rounded-2xl'>
               <img className='w-[80px] rounded-xl' src={`${item.image.image}`} alt="" />
             </div> 
-            <p className='text-center'>{item.category}</p>
+            <p className='text-center font-medium'>{item.category}</p>
           </div>
         ))
         }
@@ -57,16 +58,16 @@ const handleSearch=(e)=>{
     return (
       
       <div key={i} className='w-[95vw]  flex flex-col bg-blue-50 p-4 rounded-lg'>
-        {/* Category Header */}
+
         <div className='flex items-center justify-between px-5'>
           <p className='text-xl font-medium'>{cat.category}</p>
           <Link to={`/productlisting/${cat._id}`}>See all</Link>
         </div>
 {console.log(category_products)
 }
-        {/* Category Products */}
+
         <div className='w-[100%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-4 overflow-x-auto'>
-          {category_products.slice(0,4).map((item, j) => (
+          {category_products.slice(0,3).map((item, j) => (
             <ProductCart
               key={j}
               onClick={()=> navigate('/detailpage/5')}

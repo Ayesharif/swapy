@@ -17,7 +17,7 @@ const dispatch= useDispatch();
 const handleSearch=(e)=>{
   // e.defaultPrevent();
 const seach=  dispatch(searchProducts(data))
-console.log(seach);
+console.log(data);
 
 }
   return (
@@ -29,11 +29,13 @@ console.log(seach);
         <div className='w-[100%] flex sm:flex-row flex-col items-center  justify-center rounded-2xl'>
           <input type="text" onChange={handelField} placeholder='Search your Item' name='title' className='sm:w-[20%] w-[80%] py-2 px-1 border-2 sm:rounded-l-lg sm:rounded-t-none rounded-t-lg border-white text-white sm:border-r-0 focus:outline-0' />
           <input type="text" onChange={handelField} placeholder='Enter city' name='city' className='sm:w-[20%] w-[80%] py-2 px-1 border-2 border-white text-white  focus:outline-0' />
-          <input type="text" onChange={handelField} placeholder='Enter price' name='price' className='sm:w-[20%] w-[80%] py-2 px-1 border-2 border-white text-white sm:border-r-0 focus:outline-0' />
+          <input type="text" onChange={handelField} placeholder='Min price' name='priceMin' className='sm:w-[20%] w-[80%] py-2 px-1 border-2 border-white text-white sm:border-r-0 focus:outline-0' />
+          <input type="text" onChange={handelField} placeholder='Max price' name='priceMax' className='sm:w-[20%] w-[80%] py-2 px-1 border-2 border-white text-white sm:border-r-0 focus:outline-0' />
           <button
           onClick={handleSearch}
           className='sm:w-20 w-[80%] px-1  border-2 white text-white py-2  sm:rounded-r-lg sm:rounded-l-none  rounded-b-lg'><i className='fa-solid fa-search'></i></button>
         </div>
+
       </div>
   )
 }

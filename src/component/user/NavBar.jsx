@@ -77,6 +77,7 @@ const [open, setOpen] = useState(false);
             <button type='button' className='md:hidden px-5'
                 onClick={() => { setshowbar(!showbar) }}
             > <i className='fa-solid fa-bars text-2xl text-black'></i> </button>
+            
             <div 
             onMouseLeave={()=>{setshowbar(false)}}
             

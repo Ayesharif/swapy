@@ -12,6 +12,8 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const {IsLogin, loading, currentUser, message, messageType }=useSelector((state)=>state.auth)
+  const eType =useSelector((state)=>state.auth)
+console.log(eType);
 
     const [loginData, setloginData] = useState({email:"", password:""});
     
@@ -23,61 +25,26 @@ export default function Login() {
   };
 console.log(loginData);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-        const emailFormat = /^[a-zA-Z0-9_.+]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
-    const {email, password}=loginData
-        console.log('Login Data:', loginData);
- if(!email || !password){
-  handleError("Please fill all fields")
- }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const emailFormat = /^[a-zA-Z0-9_.+]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  
+  const {email, password}=loginData
+  console.log('Login Data:', loginData);
+  if(!email || !password){
+    handleError("Please fill all fields")
+  }
   if (!emailFormat.test(email)) {
     handleError("Please enter a valid email address!");
     return;
   }
   
   
-// const result=  dispatch(login(loginData));
- dispatch(login(loginData))
-  //    .unwrap()
-  //    .then((res) => {
-  //      console.log("Profile data:", res)
-  //      if (res.message) {
-  //       //  dispatch(setMessage({ message: res.message, messageType: res.status }))
-     
-  //       console.log("message",res.message);
-  //     console.log("status",res.status);
-  //     console.log("Data",res.data);
-  //    const message=  res.message;
-  //    const messageType=  res.status;
-  //    const currentUser=  res.data;
-  //     if (messageType == 1 && currentUser?.role === "user") {
-  //   setTimeout(() => {
-  //     handleSuccess(message);
-  //     navigate('/profile');
-  //   }, );
-  // } 
-  // else if (messageType == 1 && currentUser?.role === "admin") {
-  //   handleSuccess(message);
-  //   setTimeout(() => {
-  //     navigate('/admin');
-  //   }, );
-  // }
-
-  // if (messageType == 0) {
-  //   handleError(message);
-  // }  
-  //   }
-  //    })
-  //    .catch((err) => {
-  //      console.error("Error fetching profile:", err)
-  //          handleError(err);
-  //    })
-// console.log(result.payload);
-
+  dispatch(login(loginData))
+  
 };
 
+console.log(IsLogin);
     
 useEffect(() => {
  
@@ -94,7 +61,9 @@ useEffect(() => {
     }, 1000);
   }
 if(IsLogin){
-  navigate("/")
+  console.log(IsLogin);
+  
+  // navigate("/")
 }
   if (messageType == 0) {
     handleError(message);
@@ -102,7 +71,7 @@ if(IsLogin){
     if (messageType !== null) {
       dispatch(clearMessage()); // an action you create to reset {message, messageType}
     }
-}, [message, messageType,loading, currentUser, navigate]);
+}, [message, messageType,loading, currentUser, navigate, IsLogin]);
 
 
 

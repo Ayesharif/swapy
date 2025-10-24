@@ -19,97 +19,32 @@ export default function Profile() {
 const userId= useParams('id')
   useEffect(() => {
     dispatch(getPublicProfile(userId.id||""));
-    // dispatch(getMyProducts());
-    // dispatch(getAllUserCategories());
   }, [dispatch]);
+  const url =window.location.href;
+  console.log(url);
+ const [copySuccess, setCopySuccess] = useState('');
+
+
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopySuccess('Copied!');
+    } catch (err) {
+      setCopySuccess('Failed to copy!');
+      console.error('Failed to copy text: ', err);
+    }
+    // Optionally, clear the success message after a few seconds
+    setTimeout(() => {
+      setCopySuccess('');
+    }, 2000);
+  };
 
   const { currentUser, products, message, messageType, loading } = useSelector(
     (state) => state.product
   );
-  const { categories } = useSelector((state) => state.product);
 
-  const [showProductBox, setShowProductBox] = useState(false);
-  const [showImages, setShowImages] = useState({});
-  const [data, setData] = useState({});
-  const [Fav, setfav] = useState(false);
-  const [showUpdateBox, setShowUpdateBox] = useState(false);
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setData((prev) => ({
-      ...prev,
-      newImages: files,
-    }));
-  };
 
-  const updateImages = (image) => {
-    const preview = data?.images?.filter((item) => item !== image);
-    setData({ ...data, images: preview });
-  };
-
-  const editData = (e, data) => {
-    e.preventDefault();
-    setData(data);
-    console.log(data);
-    
-    setTimeout(() => setShowUpdateBox(true), 300);
-  };
-
-  const handelField = (e) => {
-    if (e.target.type === 'file') {
-      setData({ ...data, image: e.target.files[0] });
-    } else {
-      setData({ ...data, [e.target.name]: e.target.value });
-    }
-  };
-console.log(data);
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('firstName', data.firstName);
-    formData.append('lastName', data.lastName);
-    formData.append('email', data.email);
-    formData.append('city', data.city);
-    formData.append('phone', data.phone);
-    formData.append('imageId', currentUser.image?.publicId);
-
-    if (data.image) {
-      formData.append('images', data.image);
-    }
-
-    dispatch(updateProfile(formData));
-    setData({});
-
-    if (!loading) {
-      setTimeout(() => setShowUpdateBox(false), 300);
-    }
-  };
-
-  const updateProduct = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('description', data.description);
-    formData.append('price', data.price);
-    formData.append('productType', data.productType);
-    formData.append('category', data.category);
-    formData.append('images', JSON.stringify(data.images));
-
-    if (data.newImages?.length > 0) {
-      data.newImages.forEach((file) => {
-        formData.append('newImages', file);
-      });
-    }
-
-    const payload = { formData, id: data._id };
-    dispatch(updateMyProduct(payload));
-    setData({});
-
-    if (!loading) {
-      setTimeout(() => setShowProductBox(false), 300);
-    }
-  };
 
   useEffect(() => {
     if (messageType === 1) handleSuccess(message);
@@ -121,9 +56,7 @@ console.log(data);
     <div className="w-full min-h-[80vh] flex flex-col items-center py-5 scroll-smooth relative">
       {loading && <Loader />}
       <div
-        className={`w-[90%] grid lg:grid-cols-[30%_1fr] grid-cols-1 gap-10 ${
-          showUpdateBox ? 'blur-sm' : ''
-        }`}
+        className={`w-[90%] grid lg:grid-cols-[30%_1fr] grid-cols-1 gap-10`}
       >
         {/* === PROFILE INFO === */}
         <div className="flex items-center lg:flex-col sm:flex-row flex-col gap-5">
@@ -140,14 +73,17 @@ console.log(data);
           </div>
           <div className="w-full flex flex-col items-center gap-2">
             
-            <div className="w-[90%] flex items-center justify-center border sm:py-2 py-1 rounded hover:border-3">
+            <div className="w-[90%] flex items-center justify-center border sm:py-2 py-1 rounded hover:border-3 cursor-pointer"
+            onClick={handleCopyClick}
+            >
+
+              <div className={`flex items-center ${copySuccess ? "hidden":"block"}`}>
               <i className="fa-solid fa-share-nodes"></i>
               <p className="text-md font-medium">Share user profile</p>
+              </div>
+              <p className='text-md font-medium'>{copySuccess}</p>
             </div>
-            <div className="flex items-center w-full justify-around">
-              
-              <p className="font-medium text-blue-600 cursor-pointer">Report user</p>
-            </div>
+
           </div>
         </div>
 
@@ -176,7 +112,7 @@ console.log(data);
             <div className="w-full grid md:grid-cols-3 sm:grid-cols-2 gap-3 place-content-center">
               {products.length>0? (<>
               {products.map((item, j) => (
-                <ProductCart key={j} showAction={true} showGrid={true}  product={item}/>
+                <ProductCart key={j} showAction={false} showGrid={true}  product={item}/>
 
               ))}
               </>):("No ads Available")}

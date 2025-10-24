@@ -97,7 +97,7 @@ console.log(data);
     formData.append('category', data.category);
     formData.append('images', JSON.stringify(data.images));
 
-    if (data.newImages?.length > 0) {
+    if (data.newImages?.length > 0) {   
       data.newImages.forEach((file) => {
         formData.append('newImages', file);
       });
@@ -129,7 +129,7 @@ console.log(data);
           `}> */}
 
 
-          <div className={`flex md:w-[80%] w-[100%] flex-col items-center justify-start gap-20 py-2
+          <div className={`flex md:w-[80%] w-[80%] flex-col  justify-start gap-20 py-2
               ${showUpdateBox ? 'blur-sm' : ''}
             `}>
             <label htmlFor="ads" className="text-2xl font-bold">
@@ -142,7 +142,7 @@ console.log(data);
               {products.map((item, j) => (
          
                 <div
-                  className="w-[80%] flex flex-row  border-1 border-gray-400 rounded-lg bg-white shadow hover:shadow-md transition"
+                  className="md:w-[80%] flex flex-row  border-1 border-gray-400 rounded-lg bg-white shadow hover:shadow-md transition"
                   key={j}
                 >
                   <img

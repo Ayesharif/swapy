@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { createProduct, favProduct, getMyProducts, getprofile, updateMyProduct, updateProfile } from "../action/userAction";
+import { createProduct, getMyFavourite, getMyProducts, getprofile, IsFavProduct, updateMyProduct, updateProfile } from "../action/userAction";
 
 
 
@@ -11,6 +11,7 @@ export const userSlice = createSlice({
   name: "userSlice",
 initialState:{
     currentUser:{},
+    favourite:[],
     products:[],
     loading:false,
 message: null,
@@ -106,16 +107,27 @@ builder
   state.message=action.payload.message;
   state.messageType=action.payload.status;
 })
-.addCase(favProduct.pending, (state)=>{
+.addCase(IsFavProduct.pending, (state)=>{
   state.loading=true;
 })
-.addCase(favProduct.fulfilled, (state, action)=>{
+.addCase(IsFavProduct.fulfilled, (state, action)=>{
   state.loading=false;
-  state.currentUser=action.payload.data;
-   state.message=action.payload.message;
-  state.messageType=action.payload.status;
+state.favourite=action.payload.favourites
+  
  })
-.addCase(favProduct.rejected, (state, action)=>{
+.addCase(IsFavProduct.rejected, (state, action)=>{
+  state.loading=false;
+  state.message=action.payload.message;
+  state.messageType=action.payload.status;
+})
+.addCase(getMyFavourite.pending, (state)=>{
+  state.loading=true;
+})
+.addCase(getMyFavourite.fulfilled, (state, action)=>{
+  state.loading=false;
+  state.favourite=action.payload.products;
+ })
+.addCase(getMyFavourite.rejected, (state, action)=>{
   state.loading=false;
   state.message=action.payload.message;
   state.messageType=action.payload.status;
