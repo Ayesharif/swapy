@@ -16,7 +16,7 @@ dispatch(checkUser())
 },[dispatch])
     // const checkUser = async ()=>{
     //     console.log("here")
-    //     const response = await fetch('http://localhost:3000/authMe', {
+    //     const response = await fetch('https://swapy-backend.vercel.app/authMe', {
     //         method: "GET",
     //         credentials : 'include'
     //     })

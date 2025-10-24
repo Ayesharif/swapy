@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export const getActiveProducts = createAsyncThunk('activeProducts', async (data, { rejectWithValue }) => {
     try {
-        const response = await fetch('http://localhost:3000/products', {
+        const response = await fetch('https://swapy-backend.vercel.app/products', {
             credentials: "include"
         });
         if (!response.ok) {
@@ -23,7 +23,7 @@ export const getActiveProducts = createAsyncThunk('activeProducts', async (data,
 })
 export const getCategoryProducts = createAsyncThunk('getCategoryProducts', async (data, { rejectWithValue }) => {
     try {
-        const response = await fetch(`http://localhost:3000/category/products/${data}`, {
+        const response = await fetch(`https://swapy-backend.vercel.app/category/products/${data}`, {
             credentials: "include"
         });
         if (!response.ok) {
@@ -55,7 +55,7 @@ const queryParams = new URLSearchParams({
   ...(priceMax && { priceMax }),
 });
 
-        const response = await fetch(`http://localhost:3000/product?${queryParams}`, {
+        const response = await fetch(`https://swapy-backend.vercel.app/product?${queryParams}`, {
            method:"Get",
             credentials: "include"
         });
@@ -78,7 +78,7 @@ export const getDetailProducts = createAsyncThunk('getDetailProducts', async (da
     console.log(data);
     
     try {
-        const response = await fetch(`http://localhost:3000/product/${data}`, {
+        const response = await fetch(`https://swapy-backend.vercel.app/product/${data}`, {
             credentials: "include"
         });
         if (!response.ok) {
@@ -102,7 +102,7 @@ export const getDetailProducts = createAsyncThunk('getDetailProducts', async (da
 export const getAllUserCategories = createAsyncThunk('allCategories', async (data, { rejectWithValue }) => {
 
     try {
-        const response = await fetch('http://localhost:3000/categories', {
+        const response = await fetch('https://swapy-backend.vercel.app/categories', {
             method:"Get",
             credentials: "include"
 
@@ -125,7 +125,7 @@ export const getPublicProfile = createAsyncThunk('getPublicProfile', async (data
     console.log(data);
     
     try {
-        const response = await fetch(`http://localhost:3000/public-profile?id=${data}`, {
+        const response = await fetch(`https://swapy-backend.vercel.app/public-profile?id=${data}`, {
           method:"Get",
             credentials: "include"
         });
