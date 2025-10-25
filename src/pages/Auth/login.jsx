@@ -13,7 +13,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const {IsLogin, loading, currentUser, message, messageType }=useSelector((state)=>state.auth)
   const eType =useSelector((state)=>state.auth)
-console.log(eType);
+// console.log(eType);
 
     const [loginData, setloginData] = useState({email:"", password:""});
     
@@ -23,14 +23,14 @@ console.log(eType);
     setloginData({ ...loginData, [e.target.name]: e.target.value });
 
   };
-console.log(loginData);
+// console.log(loginData);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
   const emailFormat = /^[a-zA-Z0-9_.+]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   
   const {email, password}=loginData
-  console.log('Login Data:', loginData);
+  // console.log('Login Data:', loginData);
   if(!email || !password){
     handleError("Please fill all fields")
   }
@@ -44,7 +44,7 @@ const handleSubmit = async (e) => {
   
 };
 
-console.log(IsLogin);
+// console.log(IsLogin);
     
 useEffect(() => {
  
@@ -61,7 +61,7 @@ useEffect(() => {
     }, 1000);
   }
 if(IsLogin){
-  console.log(IsLogin);
+  // console.log(IsLogin);
   
   // navigate("/")
 }

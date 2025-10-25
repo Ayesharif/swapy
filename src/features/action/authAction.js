@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const login= createAsyncThunk('Login', async (data, {rejectWithValue})=>{
 
          try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/login', {
             method: "POST",
             headers: {
@@ -19,7 +19,7 @@ export const login= createAsyncThunk('Login', async (data, {rejectWithValue})=>{
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
 
         return result
     } catch (error) {
@@ -30,7 +30,7 @@ export const login= createAsyncThunk('Login', async (data, {rejectWithValue})=>{
 export const RegisterUser= createAsyncThunk('Register', async (data, {rejectWithValue})=>{
 
          try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/register', {
             method: "POST",
             headers: {
@@ -45,7 +45,7 @@ export const RegisterUser= createAsyncThunk('Register', async (data, {rejectWith
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)
@@ -56,7 +56,7 @@ export const forgotPassword = createAsyncThunk(
   "forgotPassword",
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data);
+      // console.log(data);
 
       const response = await fetch("https://swapy-backend.vercel.app/forgotpassword", {
         method: "POST",
@@ -75,7 +75,7 @@ export const forgotPassword = createAsyncThunk(
         return rejectWithValue(result);
       }
 
-      console.log(result);
+      // console.log(result);
       return result;
     } catch (error) {
       return rejectWithValue({ message: error.message });
@@ -85,7 +85,7 @@ export const forgotPassword = createAsyncThunk(
 
 export const verifyOtp= createAsyncThunk('verifyOtp', async(data, {rejectWithValue})=>{
          try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/verifyotp', {
             method: "POST",
             headers: {
@@ -101,7 +101,7 @@ export const verifyOtp= createAsyncThunk('verifyOtp', async(data, {rejectWithVal
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue({message:error.message})
@@ -109,7 +109,7 @@ export const verifyOtp= createAsyncThunk('verifyOtp', async(data, {rejectWithVal
 })
 export const reSetPassword= createAsyncThunk('reSetPassword', async(data, {rejectWithValue})=>{
          try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/resetpassword', {
             method: "POST",
             headers: {
@@ -129,7 +129,7 @@ export const reSetPassword= createAsyncThunk('reSetPassword', async(data, {rejec
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)
@@ -138,7 +138,7 @@ export const reSetPassword= createAsyncThunk('reSetPassword', async(data, {rejec
 
 export const logout= createAsyncThunk('logout', async(data, {rejectWithValue})=>{
          try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/logout', {
             method: "POST",
             headers: {
@@ -154,7 +154,7 @@ export const logout= createAsyncThunk('logout', async(data, {rejectWithValue})=>
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)
@@ -175,7 +175,7 @@ export const checkUser= createAsyncThunk('checkUser', async(data, {rejectWithVal
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)

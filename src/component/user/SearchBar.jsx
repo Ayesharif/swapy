@@ -17,7 +17,7 @@ const dispatch= useDispatch();
 const handleSearch=(e)=>{
   // e.defaultPrevent();
 const seach=  dispatch(searchProducts(data))
-console.log(data);
+// console.log(data);
 
 }
   return (

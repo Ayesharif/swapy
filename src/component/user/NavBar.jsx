@@ -15,7 +15,7 @@ export default function NavBar() {
     const navigate = useNavigate();
     // const { currentUser} = useSelector((state)=>state.user);
     const { currentUser, loading, message, messageType} = useSelector((state)=>state.auth);
-console.log(currentUser);
+// console.log(currentUser);
 
     useEffect(() => {
 

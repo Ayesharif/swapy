@@ -14,7 +14,7 @@ export default function ProductListing() {
  const [value, setvalue] = useState("");
 
  const { id } = useParams();
-    // console.log(id);
+    // // console.log(id);
     
     const dispatch= useDispatch();
     const navigate = useNavigate();
@@ -34,15 +34,15 @@ const handleCategorySearch = (categoryId) => {
   dispatch(getCategoryProducts(categoryId));
 };
 
-// console.log(Id);
+// // console.log(Id);
 
 
     const { products, message, messageType, loading } = useSelector((state) => state.product)
 
-console.log(products);
+// console.log(products);
 
 
-      // console.log(category_products);
+      // // console.log(category_products);
       
 return (
 <div className='flex w-screen min-h-[80vh] items-center flex-col '>

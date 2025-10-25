@@ -69,7 +69,7 @@ builder.addCase(getAllProducts.pending, (state)=>{
 })
 .addCase(addCategory.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.categories.push(action.payload.data)
     state.message=action.payload.message;
   state.messageType=action.payload.status;
@@ -84,7 +84,7 @@ builder.addCase(getAllProducts.pending, (state)=>{
 })
 .addCase(updatedCategory.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
 
    const updated = action.payload.data;
   const index = state.categories.findIndex(c => c._id === updated._id);
@@ -104,7 +104,7 @@ builder.addCase(getAllProducts.pending, (state)=>{
 })
 .addCase(deleteCategory.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.categories = state.categories.filter(
     (category) => category._id !== action.payload.id
   );
@@ -121,7 +121,7 @@ builder.addCase(getAllProducts.pending, (state)=>{
 })
 .addCase(getAllUsers.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload.Data);
+  // console.log(action.payload.Data);
     state.users=action.payload.Data;
 
 })

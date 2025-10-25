@@ -43,7 +43,7 @@ export default function Dashboard() {
   useEffect(() => {
     
     if (messageType == 0) {
-      console.log(message);
+      // console.log(message);
       handleError(message);
     }
 if(message!== null){

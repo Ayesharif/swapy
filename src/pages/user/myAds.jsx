@@ -51,7 +51,7 @@ export default function MyAds() {
   const editData = (e, data) => {
     e.preventDefault();
     setData(data);
-    console.log(data);
+    // console.log(data);
     
     setTimeout(() => setShowUpdateBox(true), 300);
   };
@@ -63,7 +63,7 @@ export default function MyAds() {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
-console.log(data);
+// console.log(data);
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -159,7 +159,7 @@ console.log(data);
                       className="absolute bottom-1 right-1 text-2xl fa-solid fa-edit"
                       onClick={() => {
                         setData(item);
-                        console.log(item);
+                        // console.log(item);
                         
                         setShowProductBox(true);
                       }}

@@ -38,17 +38,17 @@ useEffect(()=>{
 
   const handelField = (e) => {
     if (e.target.type === 'file') {
-      console.log("file");
+      // console.log("file");
       
       setData({ ...data, [e.target.name]: e.target.files[0] });
     } else {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
-console.log(data);
+// console.log(data);
 
   const handleUpdate = (e) => {
-    console.log(data);
+    // console.log(data);
     
     e.preventDefault();
     const formData = new FormData();

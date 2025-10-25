@@ -17,10 +17,10 @@ export default function OtpVerification() {
   const [lastAction, setLastAction] = useState(null);
       const {loading, message, messageType, currentUser}=useSelector((state)=>state.auth);
       const loadin=useSelector((state)=>state.auth);
-console.log(loadin);
+// console.log(loadin);
 const { email } = useParams();
 
-  // console.log(email);
+  // // console.log(email);
 
 
   const handleInput = (value, index)=>{
@@ -34,8 +34,8 @@ if (/^[0-9]?$/.test(value)) {
      document.getElementById(`otp-${index + 1}`).focus()
     }
              
-    // console.log( value, index);
-    console.log(fullOtp);
+    // // console.log( value, index);
+    // console.log(fullOtp);
 }else{
 const fullOtp =[...otp];
  fullOtp[index]="";
@@ -45,7 +45,7 @@ const fullOtp =[...otp];
   }
 
   const handleSubmit =()=>{
-    console.log(otp);
+    // console.log(otp);
 
 const OtpObject={
   otp:otp.join(""),
@@ -62,7 +62,7 @@ dispatch(verifyOtp(OtpObject))
   const handleResend = async e => {
     e.preventDefault();
 
-    // console.log(email);
+    // // console.log(email);
     dispatch(forgotPassword(email))  
 
  setTimeout(() => {

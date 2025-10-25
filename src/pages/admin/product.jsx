@@ -16,9 +16,9 @@ const ManageProducts = () => {
 
   const { products, message, messageType, loading } = useSelector((state) => state.admin)
   const prod = useSelector((state) => state.admin)
-  console.log(prod);
+  // console.log(prod);
   
-  console.log(message, messageType);
+  // console.log(message, messageType);
 
 
   const [showUpdateBox, setShowUpdateBox] = useState(false);
@@ -33,7 +33,7 @@ const ManageProducts = () => {
       handleSuccess(message);
     }
     if (messageType == 0) {
-      console.log(message);
+      // console.log(message);
       handleError(message);
     }
 if(message!== null){

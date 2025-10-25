@@ -49,8 +49,8 @@ const handleSearch=(e)=>{
     const category_products = products.filter(
       (p) => p.category === cat._id
     );
-    console.log(products);
-    console.log(cat);
+    // console.log(products);
+    // console.log(cat);
     
 
     if (category_products.length === 0) return null; // skip empty categories
@@ -63,7 +63,7 @@ const handleSearch=(e)=>{
           <p className='text-xl font-medium'>{cat.category}</p>
           <Link to={`/productlisting/${cat._id}`}>See all</Link>
         </div>
-{console.log(category_products)
+{// console.log(category_products)
 }
 
         <div className='w-[100%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-4 overflow-x-auto'>

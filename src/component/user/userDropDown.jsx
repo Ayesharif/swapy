@@ -16,12 +16,12 @@ export default function UserDropdown({ handleLogout ,currentUser, handleDropDown
   const { favourite , loading } = useSelector(
     (state) => state.user
   );
-console.log(favourite);
+// console.log(favourite);
 
   const count= favourite?.length
-  // console.log(count);
+  // // console.log(count);
   
-  // console.log(currentUser.image.image);
+  // // console.log(currentUser.image.image);
   
   useEffect(() => {
 

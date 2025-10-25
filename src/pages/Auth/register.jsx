@@ -19,24 +19,24 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   };
-console.log(formData);
+// console.log(formData);
 const navigate= useNavigate();
 const dispatch= useDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log(formData);
+    // console.log(formData);
     dispatch(RegisterUser(formData))
          .unwrap()
          .then((res) => {
-           console.log("Profile data:", res)
+           // console.log("Profile data:", res)
            if (res.message) {
             //  dispatch(setMessage({ message: res.message, messageType: res.status }))
          
-            console.log("message",res.message);
-          console.log("status",res.status);
-          console.log("Data",res.data);
+            // console.log("message",res.message);
+          // console.log("status",res.status);
+          // console.log("Data",res.data);
          const message=  res.message;
          const messageType=  res.status;
          const currentUser=  res.data;

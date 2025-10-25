@@ -15,7 +15,7 @@ export const getprofile = createAsyncThunk('getProfile', async (data, { rejectWi
 
         const result = await response.json()
         
-        console.log(result);
+        // console.log(result);
         return result
 
     } catch (error) {
@@ -25,7 +25,7 @@ export const getprofile = createAsyncThunk('getProfile', async (data, { rejectWi
 
 export const createProduct = createAsyncThunk('createProduct', async (data, { rejectWithValue }) => {
     try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/user/product', {
             method: "POST",
 
@@ -38,7 +38,7 @@ export const createProduct = createAsyncThunk('createProduct', async (data, { re
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)
@@ -48,7 +48,7 @@ export const createProduct = createAsyncThunk('createProduct', async (data, { re
 export const updateProfile = createAsyncThunk('updateProfile', async (data, { rejectWithValue }) => {
 
     try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch('https://swapy-backend.vercel.app/user/profile', {
             method: "POST",
             body: data,
@@ -60,7 +60,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (data, { re
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
 
         return result
     } catch (error) {
@@ -82,7 +82,7 @@ export const getMyProducts = createAsyncThunk('getMyProducts', async (data, { re
 
         const result = await response.json()
         
-        console.log(result);
+        // console.log(result);
         return result
 
     } catch (error) {
@@ -93,7 +93,7 @@ export const getMyProducts = createAsyncThunk('getMyProducts', async (data, { re
 export const updateMyProduct = createAsyncThunk('updateMyProduct', async (data, { rejectWithValue }) => {
 
     try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch(`https://swapy-backend.vercel.app/user/product/${data.id}`, {
             method: "Put",
             body: data.formData,
@@ -105,7 +105,7 @@ export const updateMyProduct = createAsyncThunk('updateMyProduct', async (data, 
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
 
         return result
     } catch (error) {
@@ -127,7 +127,7 @@ export const getMyFavourite = createAsyncThunk('getMyFavourite', async (data, { 
 
         const result = await response.json()
         
-        console.log(result);
+        // console.log(result);
         return result
 
     } catch (error) {
@@ -137,7 +137,7 @@ export const getMyFavourite = createAsyncThunk('getMyFavourite', async (data, { 
 
 export const IsFavProduct = createAsyncThunk('favProduct', async (data, { rejectWithValue }) => {
     try {
-        console.log(data)
+        // console.log(data)
         const response = await fetch(`https://swapy-backend.vercel.app/user/favourite/${data}`, {
             method: "POST",
             credentials:"include"
@@ -148,7 +148,7 @@ export const IsFavProduct = createAsyncThunk('favProduct', async (data, { reject
               return rejectWithValue(errorData);
             }
         const result = await response.json()
-        console.log(result)
+        // console.log(result)
         return result
     } catch (error) {
         return rejectWithValue(error)

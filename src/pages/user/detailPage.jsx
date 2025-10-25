@@ -9,12 +9,13 @@ import Loader from '../../component/common/loader';
 
 
 export default function DetailPage() {
-    const [count, setCount] = useState(0)
+    const [image, setImage] = useState("")
+    
     const [number, setnumber] = useState("Show phone number")
    const { currentUser } = useSelector((state) => state.auth)
 
     const { id } = useParams();
-console.log(id);
+// console.log(id);
 
     const dispatch= useDispatch();
     const navigate = useNavigate();
@@ -27,11 +28,12 @@ useEffect(()=>{
     const product = currentProduct?.product
     const user = currentProduct?.userData;
     // console.log(product);
+      const [selectedImage, setSelectedImage] = useState(product?.images[0]);
     
    const handleNumber=()=>{
        if(currentUser?.email){
     setnumber(user?.user?.phone);
-    console.log("user", currentUser);
+    // console.log("user", currentUser);
 }else{
     navigate('/login')
 }
@@ -43,7 +45,7 @@ useEffect(()=>{
     const [currentIndex, setCurrentIndex] = useState(0);
 const imageCount = product?.images?.length || 0;
 
-console.log("image",imageCount);
+// console.log("image",imageCount);
 
 
     const handleLeft = () => {
@@ -76,24 +78,70 @@ console.log("image",imageCount);
                 <div className='w-screen h-full  grid lg:grid-cols-[60%_1fr] md:grid-cols-[70%_1fr] items-start gap-2 py-5'>
 
                     <div className='w-[100%]  overflow-clip  flex flex-col'>
-                        <div className='w-[100%] rounded-2xl  overflow-clip  flex relative'>
-                            {product?.images?.map((image, key) => (
-  <img
-    key={key}
-    className=" flex transition-transform duration-500 ease-in-out"
+    <div className="w-full relative overflow-hidden rounded-2xl">
+  
+  <div
+    className="flex transition-transform duration-500 ease-in-out"
     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-    src={`${image.imageUrl}`}
-    alt=""
-  />
-))}
-                            <i
-                                onClick={handleLeft}
-                                className='text-2xl top-1/2 left-0 absolute bg-blue-50 p-2 rounded-[50%] fa-solid fa-angle-left' ></i>
+  >
+    {product?.images?.map((image, key) => (
+      <div key={key} className="w-full flex-shrink-0">
+        <img
+          src={image.imageUrl}
+          alt=""
+          className="w-full h-[500px] object-cover cursor-pointer"
+onMouseOver={() => {
+  if (image !== image.imageUrl) setImage(image.imageUrl);
+}}
+          onMouseLeave={()=>setImage("")}
+        />
+      </div>
+    ))}
+  </div>
 
-                            <i
-                                onClick={handleRight}
-                                className='text-2xl top-1/2 right-0 absolute bg-blue-50 p-2 rounded-[50%] fa-solid fa-angle-right' ></i>
-                        </div>
+  {/* Hovered Image Preview */}
+  
+
+  {/* Navigation Arrows */}
+  <i
+    onClick={handleLeft}
+    className="text-2xl top-1/2 left-2 absolute bg-blue-50 p-2 rounded-full cursor-pointer fa-solid fa-angle-left"
+  ></i>
+
+  <i
+    onClick={handleRight}
+    className="text-2xl top-1/2 right-2 absolute bg-blue-50 p-2 rounded-full cursor-pointer fa-solid fa-angle-right"
+  ></i>
+{image && (
+  <img
+    src={image}
+    alt="Hovered"
+    className="fixed top-[20%] right-[10%] w-[350px] h-[350px] object-cover rounded-md border-2 border-white shadow-lg z-50"
+  />
+)}
+
+</div>
+
+
+                         {/* <div className='flex flex-col w-[100%] sm:w-[80%] gap-5'>
+          <div> <img
+
+            className='rounded '
+            src={selectedImage.imageUrl} alt="" /></div>
+          <div className='flex flex-row gap-5 '>
+            {product?.images.map((item, index) => (
+
+
+              <img key={index} src={item.imageUrl}
+                className={`
+                w-[20%]  outline-2  outline-offset-2
+               ${selectedImage === item ? "outline-red-500" : "outline-black"}
+                `}
+                onClick={() => { setSelectedImage(item) }}
+                alt="" />
+            ))}
+          </div>
+        </div> */}
                         <div className='pl-2 flex flex-col gap-2 py-5'>
                             <div className=' flex flex-col gap-2 py-5'>
                                 <p className='text-3xl font-bold'>Rs {product?.price}</p>

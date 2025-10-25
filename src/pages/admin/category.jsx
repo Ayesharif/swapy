@@ -21,9 +21,9 @@ export default function Category() {
   const [updatedata, setUpdateData] = useState();
 
 const {categories, loading, message, messageType}  = useSelector((state)=>state.admin)  
-//  console.log(cat);
+//  // console.log(cat);
  
-// console.log(categories , message);
+// // console.log(categories , message);
 
   const handelField = (e) => {
     if (e.target.type === "file") {
@@ -40,12 +40,12 @@ const handleSubmit =(e)=>{
 
     if (data.image) {
       formData.append("image", data.image);
-      console.log("dsds",data.image);
+      // console.log("dsds",data.image);
        // single file
     }
  dispatch(addCategory(formData))
 
-console.log(data);
+// console.log(data);
 }
 
 const handleDelete = (e, id) => {
@@ -58,17 +58,17 @@ const handleDelete = (e, id) => {
 
 const editData =(e, Data)=>{
  e.preventDefault();
- console.log(Data);
+ // console.log(Data);
  
 setData(Data)
 setTimeout(() => {
   
-  console.log(data);
+  // console.log(data);
   setShowUpdateBox(true)
 }, 300);
 }
 
-// console.log(updatedata);
+// // console.log(updatedata);
 const handleUpdate = (e) => {
   e.preventDefault();
   if (!data?._id) {
@@ -81,7 +81,7 @@ const handleUpdate = (e) => {
   
   if (data.newImage) {
     formData.append("image", data.newImage);
-    console.log("dsds",data.newImage);
+    // console.log("dsds",data.newImage);
     // single file
   }
 //   const payload = {
@@ -89,12 +89,12 @@ const handleUpdate = (e) => {
 // form:formData
 //   };
 
-  // console.log("Updating with:", payload);
+  // // console.log("Updating with:", payload);
   dispatch(updatedCategory({
     id: data._id,             
 form:formData
   }));
-console.log(data);
+// console.log(data);
 
 
   setShowUpdateBox(false);

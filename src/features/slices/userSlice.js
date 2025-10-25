@@ -63,7 +63,7 @@ builder
 })
 .addCase(createProduct.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.products.push(action.payload.data)
     state.message=action.payload.message;
   state.messageType=action.payload.status;

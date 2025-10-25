@@ -25,7 +25,7 @@ builder
   state.loading=true;
 })
 .addCase(getActiveProducts.fulfilled, (state, action)=>{
-  console.log(action.payload.data);
+  // console.log(action.payload.data);
   state.loading=false;
   state.products=action.payload.data;
 
@@ -40,7 +40,7 @@ builder
   state.loading=true;
 })
 .addCase(getCategoryProducts.fulfilled, (state, action)=>{
-  console.log(action.payload.data);
+  // console.log(action.payload.data);
   state.loading=false;
   state.products=action.payload.data;
 
@@ -55,7 +55,7 @@ builder
   state.loading=true;
 })
 .addCase(searchProducts.fulfilled, (state, action)=>{
-  console.log(action.payload.data);
+  // console.log(action.payload.data);
   state.loading=false;
   state.products=action.payload.data;
     state.message=action.payload.message;
@@ -71,7 +71,7 @@ builder
   state.loading=true;
 })
 .addCase(getDetailProducts.fulfilled, (state, action)=>{
-  console.log(action.payload.data);
+  // console.log(action.payload.data);
   state.loading=false;
   state.currentProduct=action.payload.data;
 

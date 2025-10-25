@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { IsFavProduct } from '../../features/action/userAction';
+import { getprofile, IsFavProduct } from '../../features/action/userAction';
+import { checkUser } from '../../features/action/authAction';
 
 export default function ProductCart({product, showAction, showGrid , redHeart}) {
-    
+
+
+          
 const navigate= useNavigate();
 const dispatch= useDispatch();
      const [gridview, setgridview] = useState(showGrid);
      const [Fav, setfav] = useState(false);
 
      const [actionBtn, setActionBnt] = useState(false);
-     console.log("product");
-    //  const{Islogin, currentUser}=useSelector((state)=>state.auth)
-    //  const{Products, loading, message, messageType}=useSelector((state)=>state.User)
-    
-     
-const handleCall=()=>{
-if(Islogin){
 
-}
-}
+     const{ currentUser}=useSelector((state)=>state.user)
+    
+   
  
      useEffect(()=>{
+      dispatch(getprofile())
 if(redHeart==true){
   setfav(true)
 }
          if(showAction == false){
              setgridview(true)
             }
-        },[])
+        },[dispatch])
+
+const handleFavorite = (id) => {
+
+  
+  if(currentUser?.firstName){
+ 
+    dispatch(IsFavProduct(id));
+    setfav((prev) => !prev);
+   }else{
+     navigate("/login")
+   }
+}
+
+
   return (
 <div
               
@@ -55,7 +67,7 @@ src={
                 ${Fav == true ?  "fa-solid fa-heart text-red-600":"fa-regular fa-heart"}
                 ${showGrid==true && showAction==true? "right-5 top-5": "right-5 top-5" }
                 `} 
-                onClick={()=>{dispatch(IsFavProduct(product._id)); setfav(!Fav)}}
+               onClick={() => handleFavorite(product._id)}
                 ></i>
               
               <p className='px-2 text-xl font-medium'>RS {product.price}</p>
@@ -65,7 +77,7 @@ src={
                 flex-col products-center gap-2  items-center`}>
 
               <button className='w-[90%] text-white bg-blue-950 border-1 lg:text-lg md:text-md text-sm  font-medium py-1 rounded-lg'
-                    onClick={handleCall}
+                    
                     >
                             <i className='fa-solid fa-phone'></i> Call </button>
                         <button className='w-[90%]  text-blue-950 border-1 hover:border-3 border-blue-950 lg:text-lg md:text-md text-sm  font-medium py-1 rounded-lg'

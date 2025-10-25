@@ -4,13 +4,13 @@ import { forgotPassword, login, logout, RegisterUser, reSetPassword, verifyOtp, 
 
 //   const token = localStorage.getItem("token");
 //   const user = JSON.parse(localStorage.getItem("User"));
-//   console.log(user);
+//   // console.log(user);
   
 //  let userAvail=null
 //   if(token){
 // userAvail=true
 //   }
-//   console.log(userAvail);
+//   // console.log(userAvail);
   
 export const authSlice = createSlice({
 
@@ -52,7 +52,7 @@ builder.addCase(login.pending, (state)=>{
 })
 .addCase(RegisterUser.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.message=action.payload.message;
   state.messageType=action.payload.status;
 })
@@ -66,7 +66,7 @@ builder.addCase(login.pending, (state)=>{
 })
 .addCase(forgotPassword.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.currentUser=action.payload.data
   state.message=action.payload.message;
   state.messageType=action.payload.status;
@@ -81,7 +81,7 @@ builder.addCase(login.pending, (state)=>{
 })
 .addCase(verifyOtp.fulfilled, (state, action)=>{
   state.loading=false;
-  console.log(action.payload);
+  // console.log(action.payload);
   state.currentUser=action.payload.data
   state.message=action.payload.message;
   state.messageType=action.payload.status;

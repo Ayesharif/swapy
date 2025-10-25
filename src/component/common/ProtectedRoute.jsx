@@ -15,14 +15,14 @@ useEffect(()=>{
 dispatch(checkUser())
 },[dispatch])
     // const checkUser = async ()=>{
-    //     console.log("here")
+    //     // console.log("here")
     //     const response = await fetch('https://swapy-backend.vercel.app/authMe', {
     //         method: "GET",
     //         credentials : 'include'
     //     })
-    //     console.log(response, " response1")
+    //     // console.log(response, " response1")
     //     if(response.ok){
-    //         console.log(response, "response2")
+    //         // console.log(response, "response2")
     //         setIsAuth(true)
     //         setLoading(false)
     //         return response

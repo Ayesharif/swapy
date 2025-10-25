@@ -21,7 +21,7 @@ const userId= useParams('id')
     dispatch(getPublicProfile(userId.id||""));
   }, [dispatch]);
   const url =window.location.href;
-  console.log(url);
+  // console.log(url);
  const [copySuccess, setCopySuccess] = useState('');
 
 

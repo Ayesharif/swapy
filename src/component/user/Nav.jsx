@@ -12,7 +12,7 @@ export default function Nav() {
     const navigate = useNavigate();
 
     const { currentUser, loading, message, messageType} = useSelector((state)=>state.auth);
-// console.log(currentUser);
+// // console.log(currentUser);
 
     useEffect(() => {
 

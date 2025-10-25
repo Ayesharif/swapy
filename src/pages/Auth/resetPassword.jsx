@@ -12,7 +12,7 @@ import Loader from '../../component/common/loader';
 const ResetPassword = () => {
 
 const { email, otp } = useParams();
-console.log(email,otp);
+// console.log(email,otp);
       const {loading, message, messageType, currentUser}=useSelector((state)=>state.auth);
   const [formData, setFormData] = useState({  email: email,otp:otp, password: '' });
 
@@ -20,13 +20,13 @@ console.log(email,otp);
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   };
-console.log(formData);
+// console.log(formData);
 const navigate= useNavigate();
 const dispatch= useDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     dispatch(reSetPassword(formData))
     
   };

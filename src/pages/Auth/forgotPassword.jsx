@@ -24,19 +24,19 @@ export default function ForgotPassword() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-        console.log('Login Data:', loginData);
+        // console.log('Login Data:', loginData);
     const { email } = loginData;
-    // console.log(email);
+    // // console.log(email);
     dispatch(forgotPassword(email))    
     //  .unwrap()
 //          .then((res) => {
-//            console.log("Profile data:", res)
+//            // console.log("Profile data:", res)
 //            if (res.message) {
 //             //  dispatch(setMessage({ message: res.message, messageType: res.status }))
          
-//             console.log("message",res.message);
-//           console.log("status",res.status);
-//           console.log("Data",res.data);
+//             // console.log("message",res.message);
+//           // console.log("status",res.status);
+//           // console.log("Data",res.data);
 //          const message=  res.message;
 //          const messageType=  res.status;
 //          const email=  res?.email;
