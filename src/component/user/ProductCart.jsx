@@ -15,12 +15,12 @@ const dispatch= useDispatch();
 
      const [actionBtn, setActionBnt] = useState(false);
 
-     const{ currentUser}=useSelector((state)=>state.user)
+     const{ currentUser}=useSelector((state)=>state.auth)
     
    
  
      useEffect(()=>{
-      dispatch(getprofile())
+      // dispatch(getprofile())
 if(redHeart==true){
   setfav(true)
 }
@@ -56,7 +56,7 @@ src={
       ? product.images[0].imageUrl
       : "https://via.placeholder.com/200x200?text=No+Image"
   }
-                alt={product.name}
+                alt={product.title}
                 onClick={()=> navigate(`/detailpage/${product._id}`)}
                 className={` cursor-pointer
                   ${showGrid==true?"w-full":"w-[40%] "}
@@ -77,21 +77,25 @@ src={
                 flex-col products-center gap-2  items-center`}>
 
               <button className='w-[90%] text-white bg-blue-950 border-1 lg:text-lg md:text-md text-sm  font-medium py-1 rounded-lg'
-                    
+                //  onClick={Han}   
                     >
                             <i className='fa-solid fa-phone'></i> Call </button>
                         <button className='w-[90%]  text-blue-950 border-1 hover:border-3 border-blue-950 lg:text-lg md:text-md text-sm  font-medium py-1 rounded-lg'
-                        onClick={()=> navigate('/chats')}
+                        onClick={()=> navigate(`/chats/${product.postedBy}-${product._id}`)}
                         >
                             <i className='fa-solid fa-comment'></i> Chat </button>
                           </div>
               </div>
-{/* 
+
+
+
+            {/* <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
               <div className='absolute w-[250px] h-[250px] bg-blue-50 flex flex-col items-center  justify-around'>
                 <h1>Contact Me</h1>
                <h1>{`${currentUser.firstName} ${currentUser.lastName}`}</h1>
 <h1>{currentUser.phone}</h1>
-              </div> */}
+              </div> 
+    </div>  */}
             </div>
   )
 }

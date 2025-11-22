@@ -30,14 +30,18 @@ useEffect(()=>{
     // console.log(product);
       const [selectedImage, setSelectedImage] = useState(product?.images[0]);
     
-   const handleNumber=()=>{
-       if(currentUser?.email){
-    setnumber(user?.user?.phone);
-    // console.log("user", currentUser);
-}else{
-    navigate('/login')
-}
+    const handleNumber = () => {
+    if (currentUser?.email) {
+      // Toggle phone number
+      if (number === "Show phone number") {
+        setnumber(user?.user?.phone || "No number available");
+      } else {
+        setnumber("Show phone number");
+      }
+    } else {
+      navigate("/login");
     }
+  };
     // const [selectedImage, setSelectedImage] = useState(product.images[0]);
     const [showQuantity, setShowQuantity] = useState(1);
     // const ratings = product.rating.toFixed();
@@ -166,7 +170,7 @@ onMouseOver={() => {
                                     <i className="fa-solid fa-user text-4xl"></i>
                                     <div>
                                         <p className="text-sm">Posted by</p>
-                                        <p className="text-md font-bold">{`${user?.user?.firstName} ${user?.user?.lastName}`}</p>
+                                        <p className="text-md font-bold">{`${user?.user?.firstName||""} ${user?.user?.lastName||""}`}</p>
                                     </div>
                                 </div>
                                 <div>
@@ -203,7 +207,7 @@ onMouseOver={() => {
                     >
                             <i className='fa-solid fa-phone'></i> {number} </button>
                         <button className='md:w-[100%] w-[45%] text-blue-950 border-2 hover:border-3 border-blue-950 text-lg font-medium py-1 rounded-lg'
-                        onClick={()=> navigate('/chats')}
+                       onClick={()=> navigate(`/chats/${product.postedBy}-${product._id}`)} 
                         >
                             <i className='fa-solid fa-comment'></i> Chat </button>
 </div>

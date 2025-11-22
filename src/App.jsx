@@ -97,7 +97,7 @@ function App() {
 
 
 
-        <Route path='chats' element={
+        <Route path='chats/:id?' element={
           <ProtectedRoute requiredRole={["user"]}>
           <Chats />
 </ProtectedRoute>

@@ -90,7 +90,7 @@ const userId= useParams('id')
         
         <div className="flex flex-col w-full py-5 gap-10">
           <div className="px-2 h-20 border-b">
-            <p className="text-4xl font-bold">{`${currentUser.firstName} ${currentUser.lastName}`}</p>
+            <p className="text-4xl font-bold">{`${currentUser.firstName||""} ${currentUser.lastName||""}`}</p>
           </div>
 
           <div className="flex flex-col justify-start gap-2 py-2">

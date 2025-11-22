@@ -18,6 +18,10 @@ loading:false
       state.message = "";
       state.messageType = null;
     },
+    clearProducts: (state) => {
+  state.products = [];
+},
+
     },
   extraReducers:(builder)=>{
 builder
@@ -88,7 +92,7 @@ builder
 })
 .addCase(getAllUserCategories.fulfilled, (state, action)=>{
   state.loading=false;
-  state.categories=action.payload;
+  state.categories=action.payload.data;
 })
 .addCase(getAllUserCategories.rejected, (state, action)=>{
   state.loading=false;
@@ -113,5 +117,5 @@ builder
 
 },
 });
-export const { clearMessage } = productSlice.actions;
+export const { clearMessage, clearProducts } = productSlice.actions;
 export default productSlice.reducer;

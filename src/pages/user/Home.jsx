@@ -23,6 +23,7 @@ const handleSearch=(e)=>{
   dispatch(searchProducts(data))
 }
       const { products, categories, message, messageType, loading } = useSelector((state) => state.product)
+// console.log(categories);
 
   return (
     <div className=' w-screen flex flex-col items-center justify-center'>
@@ -30,22 +31,31 @@ const handleSearch=(e)=>{
 
      <SearchBar/>
 
-      <div className='flex flex-wrap items-center  sm:px-30 px-10 py-10 gap-5'>
-        {categories.map((item, key) => (
-          <div className='flex flex-col items-center' key={key}
-           onClick={()=>navigate(`/productlisting/${item._id}`)}
-          >
-            <div className='w-[100px] h-[100px] flex items-center justify-center bg-blue-50 rounded-2xl'>
-              <img className='w-[80px] rounded-xl' src={`${item.image.image}`} alt="" />
-            </div> 
-            <p className='text-center font-medium'>{item.category}</p>
-          </div>
-        ))
-        }
+<div className="flex flex-wrap items-center sm:px-30 px-10 py-10 gap-5">
+  {categories.length > 0 && categories.map((item, key) => (
+    <div
+      className="flex flex-col items-center cursor-pointer"
+      key={key}
+      onClick={() => navigate(`/productlisting/${item._id}`)}
+    >
+      <div className="w-[100px] h-[100px] flex items-center justify-center bg-blue-50 rounded-2xl">
+        <img
+          className="w-[80px] rounded-xl"
+          src={item.image?.image || "/placeholder.png"} // fallback image
+          alt={item.category}
+        />
       </div>
+      <p className="text-center font-medium">{item.category}</p>
+    </div>
+  ))}
+</div>
+
+{categories.length < 1 &&
+  <div>No Category Available</div>}
 
 <div className='sm:w-[95%] py-6 flex flex-col gap-5'>
-  {categories.map((cat, i) => {
+  {categories.length>0 && 
+  categories.map((cat, i) => {
     const category_products = products.filter(
       (p) => p.category === cat._id
     );
@@ -53,7 +63,7 @@ const handleSearch=(e)=>{
     // console.log(cat);
     
 
-    if (category_products.length === 0) return null; // skip empty categories
+    if (category_products.length === 0) return <div key={i} className='text-center font-bold '>No any Product Available</div>; // skip empty categories
 
     return (
       

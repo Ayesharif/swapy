@@ -6,6 +6,7 @@ import FilterBar from '../../component/user/FilterBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActiveProducts, getCategoryProducts } from '../../features/action/productAction';
 import Loader from '../../component/common/loader';
+import { clearProducts } from '../../features/slices/productSlice';
 
 export default function ProductListing() {
  const [dropdown, setDropDown] = useState(false);
@@ -20,6 +21,8 @@ export default function ProductListing() {
     const navigate = useNavigate();
 
 useEffect(()=>{
+   dispatch(clearProducts());
+
   dispatch(getCategoryProducts(id))
   // if(id){
   // }
@@ -27,7 +30,7 @@ useEffect(()=>{
   //   dispatch(getActiveProducts())
 
   // }
-},[])
+},[id, dispatch])
 
 const handleCategorySearch = (categoryId) => {
   navigate(`/productlisting/${categoryId}`);
